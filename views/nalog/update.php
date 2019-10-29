@@ -6,10 +6,8 @@ use yii\helpers\Html;
 /* @var $model app\models\Nalog */
 
 $this->title = Yii::t('app', 'Izmijeni podatke naloga: {name}', [
-    'name' => $model->nalogID,
-]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Nalozi'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->nalogID, 'url' => ['view', 'id' => $model->nalogID]];
+    'name' => $model->nalogID, ]);
+$this->params['breadcrumbs'][] = ['label' => 'Nalog broj '.$model->nalogID, 'url' => ['view', 'id' => $model->nalogID]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Izmijeni');
 ?>
 <div class="nalog-update">

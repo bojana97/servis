@@ -64,14 +64,14 @@ class AtributController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Atribut();
+        $modelAtribut = new Atribut();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->atrID]);
+        if ($modelAtribut->load(Yii::$app->request->post()) && $modelAtribut->save()) {
+            return $this->redirect(['view', 'id' => $modelAtribut->atrID]);
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'modelAtribut' => $modelAtribut,
         ]);
     }
 
@@ -84,14 +84,14 @@ class AtributController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $modelAtribut = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->atrID]);
+        if ($modelAtribut->load(Yii::$app->request->post()) && $modelAtribut->save()) {
+            return $this->redirect(['view', 'id' => $modelAtribut->atrID]);
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'modelAtribut' => $modelAtribut,
         ]);
     }
 

@@ -64,14 +64,14 @@ class AtributiKategorijeController extends Controller
      */
     public function actionCreate()
     {
-        $model = new AtributiKategorije();
+        $modelAtributiKategorije = new AtributiKategorije();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->atrKatID]);
+        if ($modelAtributiKategorije->load(Yii::$app->request->post()) && $modelAtributiKategorije->save()) {
+            return $this->redirect(['view', 'id' => $modelAtributiKategorije->atrKatID]);
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'modelAtributiKategorije' => $modelAtributiKategorije,
         ]);
     }
 
@@ -84,14 +84,14 @@ class AtributiKategorijeController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $modelAtributiKategorije = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->atrKatID]);
+        if ($modelAtributiKategorije->load(Yii::$app->request->post()) && $modelAtributiKategorije->save()) {
+            return $this->redirect(['view', 'id' => $modelAtributiKategorije->atrKatID]);
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'modelAtributiKategorije' => $modelAtributiKategorije,
         ]);
     }
 

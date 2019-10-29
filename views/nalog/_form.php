@@ -45,7 +45,6 @@ use app\models\Os;
 	?>
 	<div class="form-group" style="margin-top:30px;">
         <?= Html::submitButton(Yii::t('app', 'Sacuvaj'), ['class' => 'btn btn-success']) ?>
-		<?= Html::a(Yii::t('app', 'Otkazi'), ['create'], ['class' => 'btn  btn-default']) ?>
     </div>
 
   </div>

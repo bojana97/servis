@@ -5,6 +5,8 @@ namespace app\controllers;
 use Yii;
 use app\models\Kategorija;
 use app\models\KategorijaPretraga;
+use app\models\Atribut;
+use app\models\AtributiKategorije;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -136,14 +138,31 @@ class KategorijaController extends Controller
 			->all();
 
 
-		//use it for creating new category on the same view
+		//used for creating new category on the same view
 	    $model = new Kategorija();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->katID]);
         }
 
+		//used for creating new atribute on the same view
+		$modelAtribut = new Atribut();
+        if ($modelAtribut->load(Yii::$app->request->post()) && $modelAtribut->save()) {
+			 Yii::$app->session->setFlash('success', 'Atribut uspjesno sacuvan!');
+			 return $this->redirect(['katindex']);
+        }
+
+		//used for appending atributte on category on the same view
+		$modelAtributiKategorije = new AtributiKategorije();
+        if ($modelAtributiKategorije->load(Yii::$app->request->post()) && $modelAtributiKategorije->save()) {
+			Yii::$app->session->setFlash('success', 'Atribut uspjesno dodijeljen kategoriji!');
+           
+		   return $this->redirect(['katindex']);
+        }
+
 	
-		return $this->render('katindex', ['kategorije'=>$kategorije, 'model'=>$model]);
+		return $this->render('katindex', ['kategorije'=>$kategorije, 'model'=>$model, 
+										  'modelAtribut'=>$modelAtribut, 
+										  'modelAtributiKategorije' => $modelAtributiKategorije ]);
 	}
 
 

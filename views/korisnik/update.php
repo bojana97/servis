@@ -5,16 +5,16 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Korisnik */
 
-$this->title = Yii::t('app', 'Update Korisnik: {name}', [
-    'name' => $model->korisnikID,
+$this->title = Yii::t('app', 'Izmijeni podatke korisnika: {name}', [
+    'name' => $model->punoImeKorisnika,
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Korisniks'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->korisnikID, 'url' => ['view', 'id' => $model->korisnikID]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Korisnici'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->punoImeKorisnika, 'url' => ['view', 'id' => $model->korisnikID]];
+$this->params['breadcrumbs'][] = Yii::t('app', 'Izmijeni');
 ?>
 <div class="korisnik-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h4 class="text-center"><?= Html::encode($this->title) ?></h4>
 
     <?= $this->render('_form', [
         'model' => $model,

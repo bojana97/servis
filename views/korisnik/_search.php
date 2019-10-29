@@ -18,27 +18,23 @@ use yii\widgets\ActiveForm;
         ],
     ]); ?>
 
-    <?= $form->field($model, 'korisnikID') ?>
+	<div class="row" style="margin:30px 0 20px 0;">
 
-    <?= $form->field($model, 'sektorID') ?>
+		 <div class="col-md-4">
+		     <?= $form->field($model, 'korisnik')->textInput()->label('Korisnik') ?>
+			 <?= $form->field($model, 'sektor')->textInput()->label('Sektor') ?>
+		</div>
 
-    <?= $form->field($model, 'ime') ?>
+	<div class="col-md-2" style="margin-top:25px;">
+		<?= Html::submitButton(Yii::t('app', 'Pretrazi'), ['class' => 'btn btn-primary']) ?>
+	</div>
 
-    <?= $form->field($model, 'prezime') ?>
-
-    <?= $form->field($model, 'telefon') ?>
-
-    <?php // echo $form->field($model, 'email') ?>
-
-    <?php // echo $form->field($model, 'lozinka') ?>
-
-    <?php // echo $form->field($model, 'korisnickoIme') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-outline-secondary']) ?>
-    </div>
+	<div class="col-md-6" style="margin-top:25px;" >
+	   <?= Html::a(Yii::t('app', 'Unos korisnika'), ['create'], ['class' => 'btn btn-success', 'style'=>"float:right;margin-left:10px;"]) ?>
+	   <?= Html::a(Yii::t('app', 'Sektori'), ['/sektor/index'], ['class' => 'btn btn-default', 'style'=>"float:right;"]) ?>
+	</div>
+ 
 
     <?php ActiveForm::end(); ?>
-
+</div>
 </div>

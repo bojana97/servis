@@ -6,9 +6,9 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Nalog */
 
-//$this->title = $model->nalogID;
+$this->title = 'Nalog broj ' . $model->nalogID;
 //$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Nalozi'), 'url' => ['index']];
-//$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="nalog-view" style="margin: 40px 150px;">

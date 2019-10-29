@@ -6,10 +6,11 @@ use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ServiserPretraga */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+$this->title = Yii::t('app', 'Serviseri');
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="serviser-index">
 
-    <h4><?= Html::encode($this->title) ?></h4>
     <?php Pjax::begin(); ?>
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 

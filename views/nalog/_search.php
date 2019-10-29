@@ -25,7 +25,7 @@ use yii\widgets\ActiveForm;
 	</div>
 
 	<div class="col-md-3" >
-		<?= $form->field($model, 'statusNaloga')->dropDownList([ 'na cekanju' => 'Na èekanju', 'u obradi' => 'U obradi', 'završeno' => 'Završeno', ], ['prompt' => '']) ?>
+		<?= $form->field($model, 'statusNaloga')->dropDownList([ 'na cekanju' => 'Na cekanju', 'u obradi' => 'U obradi', 'završeno' => 'Zavrseno', ], ['prompt' => '']) ?>
 		<?= $form->field($model, 'serviser')->textInput()->label('Serviser')?>
 	</div>
 

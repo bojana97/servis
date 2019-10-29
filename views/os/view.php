@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+$niz=[];
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Os */
@@ -37,4 +38,4 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
-</div>
+

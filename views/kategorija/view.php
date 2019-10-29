@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Kategorija */
 
 $this->title = $model->nazivKat;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Kategorije'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Ispis kategorija'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

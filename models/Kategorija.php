@@ -32,6 +32,7 @@ class Kategorija extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+			[['nazivKat'], 'required'],
             [['roditeljID'], 'integer'],
             [['nazivKat'], 'string', 'max' => 30],
             [['roditeljID'], 'exist', 'skipOnError' => true, 'targetClass' => Kategorija::className(), 'targetAttribute' => ['roditeljID' => 'katID']],

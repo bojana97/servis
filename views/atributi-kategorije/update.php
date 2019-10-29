@@ -6,10 +6,10 @@ use yii\helpers\Html;
 /* @var $model app\models\AtributiKategorije */
 
 $this->title = Yii::t('app', 'Update Atributi Kategorije: {name}', [
-    'name' => $model->atrKatID,
+    'name' => $modelAtributiKategorije->atrKatID,
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Atributi Kategorijes'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->atrKatID, 'url' => ['view', 'id' => $model->atrKatID]];
+$this->params['breadcrumbs'][] = ['label' => $modelAtributiKategorije->atrKatID, 'url' => ['view', 'id' => $modelAtributiKategorije->atrKatID]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="atributi-kategorije-update">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
-        'model' => $model,
+        'modelAtributiKategorije' => $modelAtributiKategorije,
     ]) ?>
 
 </div>

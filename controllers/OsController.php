@@ -43,7 +43,7 @@ class OsController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-
+	
     /**
      * Displays a single Os model.
      * @param integer $id
@@ -52,6 +52,16 @@ class OsController extends Controller
      */
     public function actionView($id)
     {
+		
+	/*	$os = (new \yii\db\Query())
+			  ->select(['nazivOs','invBroj','nazivAtr', 'vrijednost'])
+			  ->from('os')
+			  ->join('INNER JOIN', 'vrijednost_os', 'os.osID=vrijednost_os.osID')
+			  ->join('INNER JOIN', 'vrijednost_atributa', 'vrijednost_os.vrijAtrID=vrijednost_atributa.vrijAtr')
+			  ->join('INNER JOIN', 'atribut', 'vrijednost_atributa.atrID=atribut.atrID' )
+			  ->where('osID=>1');
+
+*/
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);

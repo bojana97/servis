@@ -5,19 +5,18 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Atribut */
 
-$this->title = Yii::t('app', 'Update Atribut: {name}', [
-    'name' => $model->atrID,
+$this->title = Yii::t('app', 'Izmijeni atribut: {name}', [
+    'name' => $modelAtribut->nazivAtr,
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Atributs'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->atrID, 'url' => ['view', 'id' => $model->atrID]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Ispis atributa'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = Yii::t('app', 'Izmijeni');
 ?>
-<div class="atribut-update">
+<div class="atribut-update" style="margin-top:70px;">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h4 style="text-align:center;"><?= Html::encode($this->title) ?></h4>
 
     <?= $this->render('_form', [
-        'model' => $model,
+        'modelAtribut' => $modelAtribut,
     ]) ?>
 
 </div>

@@ -44,6 +44,7 @@ AppAsset::register($this);
         //    ['label' => 'Contact', 'url' => ['/site/contact']],
 			  ['label' => 'Nalozi', 'url' => ['/nalog/index']],
 			  ['label' => 'Sredstva', 'url' => ['/os/index']],
+			  ['label' => 'Korisnici', 'url' => ['/korisnik/index']],
 			  ['label' => 'Serviseri', 'url' => ['/serviser/index']],
 
             Yii::$app->user->isGuest ? (['label' => 'Prijavi se', 'url' => ['/site/login']]) : 
@@ -64,6 +65,8 @@ AppAsset::register($this);
 
     <div class="container">
         <?= Breadcrumbs::widget([
+		    'homeLink' => ['label' => 'Nalozi',
+			'url' => Yii::$app->getHomeUrl() . 'index.php?r=nalog/index'],
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>

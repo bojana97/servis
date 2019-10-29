@@ -14,15 +14,19 @@ class KorisnikPretraga extends Korisnik
     /**
      * {@inheritdoc}
      */
+
+	 public $korisnik;
+	 public $sektor;
     public function rules()
     {
         return [
             [['korisnikID', 'sektorID'], 'integer'],
-            [['ime', 'prezime', 'telefon', 'email', 'lozinka', 'korisnickoIme'], 'safe'],
+            [['ime', 'prezime', 'korisnik', 'sektor', 'telefon', 'email', 'lozinka', 'korisnickoIme'], 'safe'],
         ];
     }
 
     /**
+     * {@inheritdoc}
      * {@inheritdoc}
      */
     public function scenarios()
@@ -41,7 +45,7 @@ class KorisnikPretraga extends Korisnik
     public function search($params)
     {
         $query = Korisnik::find();
-
+		$query->innerJoinWith('sektor');
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -56,18 +60,10 @@ class KorisnikPretraga extends Korisnik
             return $dataProvider;
         }
 
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'korisnikID' => $this->korisnikID,
-            'sektorID' => $this->sektorID,
-        ]);
 
-        $query->andFilterWhere(['like', 'ime', $this->ime])
-            ->andFilterWhere(['like', 'prezime', $this->prezime])
-            ->andFilterWhere(['like', 'telefon', $this->telefon])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'lozinka', $this->lozinka])
-            ->andFilterWhere(['like', 'korisnickoIme', $this->korisnickoIme]);
+        $query->andFilterWhere(['like', 'ime', $this->korisnik])
+            ->orFilterWhere(['like', 'prezime', $this->korisnik])
+			->andFilterWhere(['like', 'sektor.naziv', $this->sektor]);
 
         return $dataProvider;
     }

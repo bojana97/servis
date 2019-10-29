@@ -67,7 +67,7 @@ class SektorController extends Controller
         $model = new Sektor();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->sektorID]);
+            Yii::$app->session->setFlash('success', 'Novi sektor uspjesno kreiran!');
         }
 
         return $this->render('create', [
@@ -87,7 +87,7 @@ class SektorController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->sektorID]);
+            Yii::$app->session->setFlash('success', 'Sektor uspjesno izmijenjen!');
         }
 
         return $this->render('update', [

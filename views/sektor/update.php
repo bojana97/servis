@@ -5,16 +5,15 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Sektor */
 
-$this->title = Yii::t('app', 'Update Sektor: {name}', [
-    'name' => $model->sektorID,
+$this->title = Yii::t('app', 'Izmijeni sektor: {name}', [
+    'name' => $model->naziv,
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Sektors'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->sektorID, 'url' => ['view', 'id' => $model->sektorID]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Ispis sektora'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = Yii::t('app', 'Izmijeni');
 ?>
 <div class="sektor-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h4 style="text-align:center;"><?= Html::encode($this->title) ?></h4>
 
     <?= $this->render('_form', [
         'model' => $model,

@@ -38,9 +38,26 @@ class VrijednostAtributaController extends Controller
         $searchModel = new VrijednostAtributaPretraga();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+		$atributiVrijednosti = (new yii\db\Query())
+							->select('nazivAtr, vrijednost')
+							->from('atribut')
+							->join('INNER JOIN', 'vrijednost_atributa', 'atribut.atrID=vrijednost_atributa.atrID')
+							->orderBy('nazivAtr ASC')
+							->all();
+
+
+
+		$model = new VrijednostAtributa();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			Yii::$app->session->setFlash('success', 'Vrijednost je uspjesno sacuvana!');
+			 return $this->redirect('index');
+        }
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+			'atributiVrijednosti' => $atributiVrijednosti,
+			'model'=>$model,
         ]);
     }
 
@@ -67,6 +84,7 @@ class VrijednostAtributaController extends Controller
         $model = new VrijednostAtributa();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+		Yii::$app->session->setFlash('succes', 'Vrijednost atributa uspjesno unesena!');
             return $this->redirect(['view', 'id' => $model->vrijAtrID]);
         }
 
