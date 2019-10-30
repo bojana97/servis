@@ -48,13 +48,13 @@ class NalogPretraga extends Nalog
         $query = Nalog::find();
 		$query->innerJoinWith('os');
 		$query->innerJoinWith('korisnik');
-		$query->innerJoinWith('izvrsavaNalog0');
+		$query->innerJoinWith('zaprimioNalog0');
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-			'pagination'=>['pageSize'=>7]
+			'pagination' => [ 'pageSize' => 6 ],
         ]);
 
         $this->load($params);

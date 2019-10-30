@@ -35,7 +35,7 @@ class Serviser extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['serviserID', 'ime', 'prezime', 'korisnickoIme', 'lozinka'], 'required'],
+            [[ 'ime', 'prezime', 'korisnickoIme', 'lozinka'], 'required'],
             [['serviserID'], 'integer'],
             [['ime', 'korisnickoIme'], 'string', 'max' => 50],
             [['prezime'], 'string', 'max' => 60],

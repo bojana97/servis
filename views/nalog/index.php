@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
-//use app\models\Korisnik;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\NalogPretraga */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -18,10 +18,11 @@ $this->title = Yii::t('app', 'Nalozi');
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-		  'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
-		 'layout'=>"{items}",
-		 'summary' => "{begin} - {end} of {totalCount} items",
-		 'rowOptions' => function ($model, $key, $index, $grid) {
+		'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => '-'],
+    'layout' => "{summary}\n{items}\n<div class='text-center'>{pager}</div>",
+		'summary' => "Prikaz {begin} - {end} od ukupno {totalCount} rekorda",
+		'pager' => ['options' => ['class' => 'pagination pull-center']],
+		'rowOptions' => function ($model, $key, $index, $grid) {
                     return [
                         'style' => "cursor: pointer; background-color:#E6E6FA; 
 									font-size:13px; text-align:center;
@@ -35,7 +36,6 @@ $this->title = Yii::t('app', 'Nalozi');
 			],
            
             [
-			'class'=>'yii\grid\DataColumn',
 			'label'=>'Broj naloga',
 			'value'=>'nalogID',
 			'headerOptions' => ['style' => 'background-color:#0275d8; color:white; padding:10px; font-size:13px;', 'class' => 'text-center'],
