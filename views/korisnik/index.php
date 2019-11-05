@@ -17,17 +17,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-       	'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
-        //'filterModel' => $searchModel,
-		'layout'=>"{items}",
-		'summary' => "{begin} - {end} of {totalCount} items",
+		'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => '-'],
+		'layout' => "{summary}\n{items}\n<div class='text-center'>{pager}</div>",
+		'summary' => "Prikaz {begin} - {end} od ukupno {totalCount} rekorda",
+		'pager' => ['options' => ['class' => 'pagination pull-center']],
 		'rowOptions' => function ($model, $key, $index, $grid) {
                     return [
                         'style' => "cursor: pointer; background-color:#E6E6FA; 
 									font-size:13px; text-align:center;
 									padding: 3px 2px;"
 					];
-	    },
+				},
         'columns' => [
             ['class' => 'yii\grid\SerialColumn',
 			'headerOptions' => ['style' => 'background-color:#0275d8; color:white; padding:10px;font-size:15px', 'class' => 'text-center'],		

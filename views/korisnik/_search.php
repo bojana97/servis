@@ -1,7 +1,9 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
+USE app\models\Sektor;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\KorisnikPretraga */
@@ -22,7 +24,12 @@ use yii\widgets\ActiveForm;
 
 		 <div class="col-md-4">
 		     <?= $form->field($model, 'korisnik')->textInput()->label('Korisnik') ?>
-			 <?= $form->field($model, 'sektor')->textInput()->label('Sektor') ?>
+
+			 <?= $form->field($model, 'sektorID')->textInput()->label('Sektor')
+			 ->dropDownList(ArrayHelper::map(Sektor::find()
+			 ->select(['naziv', 'sektorID'])->all(), 'sektorID', 'naziv'),
+			 ['class'=>'form-control inline-block', 'prompt'=>'Svi'])
+		?>
 		</div>
 
 	<div class="col-md-2" style="margin-top:25px;">

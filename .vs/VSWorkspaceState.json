@@ -1,11 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\controllers",
+    "\\assets",
     "\\views",
-    "\\views\\kategorija",
-    "\\views\\nalog"
+    "\\views\\nalog",
+    "\\web",
+    "\\web\\js"
   ],
-  "SelectedNode": "\\views\\kategorija\\katindex.php",
+  "SelectedNode": "\\views\\nalog\\index.php",
   "PreviewInSolutionExplorer": false
 }

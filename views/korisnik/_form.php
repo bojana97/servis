@@ -18,6 +18,7 @@ use app\models\Sektor;
 	<div class="col-md-6">
 		<?= $form->field($model, 'ime')->textInput(['maxlength' => true]) ?>
 		<?= $form->field($model, 'prezime')->textInput(['maxlength' => true]) ?>
+
 		<?= $form->field($model, 'sektorID')->textInput()->label('Sektor')
 			 ->dropDownList(ArrayHelper::map(Sektor::find()
 			 ->select(['naziv', 'sektorID'])->all(), 'sektorID', 'naziv'),

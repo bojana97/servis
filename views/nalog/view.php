@@ -38,15 +38,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
 			'label'=> 'Prijavio korisnik',
-			'attribute'=> 'korisnik.punoImeKorisnika'
+			'attribute'=> 'prijavioNalog.punoImeKorisnika'
 			],
             [
 			'label'=> 'Zaprimio nalog',
-			'attribute'=> 'zaprimioNalog0.punoImeServisera'
+			'attribute'=> 'zaprimioNalog0.punoImeKorisnika'
 			],
             [
 			'label'=> 'Izvrsava nalog',
-			'attribute'=> 'izvrsavaNalog0.punoImeServisera'
+			'attribute'=> 'izvrsavaNalog0.punoImeKorisnika'
 			],
            [
 			'label'=> 'Vrijeme otvaranja',

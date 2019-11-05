@@ -3,9 +3,12 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+
 /* @var $this yii\web\View */
 /* @var $model app\models\NalogPretraga */
 /* @var $form yii\widgets\ActiveForm */
+/* Html::a(Yii::t('app', 'Unesi novi nalog'), ['create'], ['class' => 'btn btn-success', 'style'=>'margin-top:23px;margin-left:50px;']) 
+*/
 ?>
 <div class="container">
 <div class="nalog-search">
@@ -18,6 +21,7 @@ use yii\widgets\ActiveForm;
         ],
  ]); ?>
 
+
 <div class="row" style="margin:30px 0 20px;">
 	<div class="col-md-3" style="">
 		<?= $form->field($model, 'nalogID')->textInput()->label('Broj naloga')?>
@@ -25,12 +29,12 @@ use yii\widgets\ActiveForm;
 	</div>
 
 	<div class="col-md-3" >
-		<?= $form->field($model, 'statusNaloga')->dropDownList([ 'na cekanju' => 'Na cekanju', 'u obradi' => 'U obradi', 'završeno' => 'Zavrseno', ], ['prompt' => '']) ?>
-		<?= $form->field($model, 'serviser')->textInput()->label('Serviser')?>
+		<?= $form->field($model, 'statusNaloga')->dropDownList([ 'na cekanju' => 'Na cekanju', 'u obradi' => 'U obradi', 'zavrseno' => 'Zavrseno', ], ['prompt' => 'Svi']) ?>
+		<?= $form->field($model, 'zaprimio')->textInput()->label('Serviser')?>
 	</div>
 
 	<div class="col-md-3";>
-		<?= $form->field($model, 'korisnik')->textInput()->label('Korisnik')?>
+		<?= $form->field($model, 'prijavio')->textInput()->label('Korisnik')?>
 		<div class="form-group" style="margin-top:40px;margin-left:50px;">
 		<?= Html::submitButton(Yii::t('app', 'Pretrazi'), ['class' => 'btn btn-primary']) ?>
 		<?= Html::a(Yii::t('app', 'Resetuj'), ['index'], ['class' => 'btn  btn-default']) ?>
@@ -38,9 +42,11 @@ use yii\widgets\ActiveForm;
 	</div>
 
 	<div class="col-md-3" >
-        <?= Html::a(Yii::t('app', 'Unesi novi nalog'), ['create'], ['class' => 'btn btn-success', 'style'=>'margin-top:23px;margin-left:50px;']) ?>
 	</div>
 </div>
     <?php ActiveForm::end(); ?>
+
+
+
 </div>
 </div>

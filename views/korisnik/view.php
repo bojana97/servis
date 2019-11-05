@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			],
 
             'telefon',
+
             [
 			'label'=> 'E-mail',
 			'attribute'=> 'email',

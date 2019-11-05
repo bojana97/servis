@@ -70,7 +70,7 @@ class NalogController extends Controller
             return $this->redirect(['view', 'id' => $model->nalogID]);
         }
 
-        return $this->render('create', [
+        return $this->renderAjax('create', [
             'model' => $model,
         ]);
     }

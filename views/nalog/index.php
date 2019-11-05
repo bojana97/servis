@@ -2,6 +2,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\NalogPretraga */
@@ -10,11 +12,31 @@ $this->title = Yii::t('app', 'Nalozi');
 ?>
 <div class="nalog-index">
 
-    <?php Pjax::begin(); ?>
+
 
 	<div>
 	 <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
 	<div>
+
+
+	<?= Html::button('Unesi novi nalog', ['value'=>Yii::$app->urlManager->createUrl('/nalog/create'), 'class'=>'btn btn-success', 'id'=>'modelButton']) ?>
+
+	<?php
+            
+    Modal::begin([
+            'header' => '<h4>Novi nalog</h4>',
+            'id'     => 'model',
+            'size'   => 'model-md',
+    ]);
+    
+    echo "<div id='modelContent'></div>";
+    
+    Modal::end();
+            
+?>
+
+
+
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -49,19 +71,19 @@ $this->title = Yii::t('app', 'Nalozi');
 
 			[
 			'label'=>'Prijavio',
-			'value'=>'korisnik.punoImeKorisnika',
+			'value'=>'prijavioNalog.punoImeKorisnika',
 			'headerOptions' => ['style' => 'background-color:#0275d8; color:white; padding:10px;font-size:13px;', 'class' => 'text-center'],
 			],
 
 			[
 			'label'=>'Zaprimio nalog',
-			'value'=>'zaprimioNalog0.punoImeServisera',
+			'value'=>'zaprimioNalog0.punoImeKorisnika',
 			'headerOptions' => ['style' => 'background-color:#0275d8; color:white; padding:10px;font-size:13px;', 'class' => 'text-center'],
 			],
 
 			[
 			'label'=>'Izvrsava nalog',
-			'value'=>'izvrsavaNalog0.punoImeServisera',
+			'value'=>'izvrsavaNalog0.punoImeKorisnika',
 			'headerOptions' => ['style' => 'background-color:#0275d8; color:white; padding:10px;font-size:13px;', 'class' => 'text-center'],
 			],
           
@@ -93,6 +115,5 @@ $this->title = Yii::t('app', 'Nalozi');
 	   'tableOptions' => ['class' => 'table table-sm table-stripped table-hover', 'style'=>'border-radius:10px;'],
     ]); ?>
 
-    <?php Pjax::end(); ?>
 
 </div>

@@ -45,14 +45,14 @@ AppAsset::register($this);
 			  ['label' => 'Nalozi', 'url' => ['/nalog/index']],
 			  ['label' => 'Sredstva', 'url' => ['/os/index']],
 			  ['label' => 'Korisnici', 'url' => ['/korisnik/index']],
-			  ['label' => 'Serviseri', 'url' => ['/serviser/index']],
+			 // ['label' => 'Serviseri', 'url' => ['/serviser/index']],
 
             Yii::$app->user->isGuest ? (['label' => 'Prijavi se', 'url' => ['/site/login']]) : 
 			(
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Odjavi se (' . Yii::$app->user->identity->username . ')',
+                    'Odjavi se (' . Yii::$app->user->identity->korisnickoIme . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()

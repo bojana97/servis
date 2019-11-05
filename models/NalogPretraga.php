@@ -16,14 +16,14 @@ class NalogPretraga extends Nalog
      */
 
 	 public $nazivOs;
-	 public $korisnik;
-	 public $serviser;
+	 public $prijavio;
+	 public $zaprimio;
 
     public function rules()
     {
         return [
-            [['nalogID', 'osID', 'korisnikID', 'zaprimioNalog', 'izvrsavaNalog'], 'integer'],
-            [['datOtvaranja', 'nazivOs', 'korisnik','serviser','datZatvaranja', 'opis', 'statusNaloga'], 'safe'],
+            [['nalogID', 'osID', 'zaprimioNalog', 'izvrsavaNalog'], 'integer'],
+            [['datOtvaranja', 'nazivOs', 'prijavio','zaprimio','datZatvaranja', 'opis', 'statusNaloga'], 'safe'],
         ];
     }
 
@@ -47,8 +47,8 @@ class NalogPretraga extends Nalog
     {
         $query = Nalog::find();
 		$query->innerJoinWith('os');
-		$query->innerJoinWith('korisnik');
-		$query->innerJoinWith('zaprimioNalog0');
+		$query->innerJoinWith('prijavioNalog as prijavio');
+		$query->innerJoinWith('zaprimioNalog0 as zaprimio');
 
         // add conditions that should always apply here
 
@@ -72,10 +72,10 @@ class NalogPretraga extends Nalog
         ]);
 
         $query ->andFilterWhere(['like', 'nazivOs', $this->nazivOs])
-            ->andFilterWhere(['like', 'serviser.ime', $this->serviser])
-			->orFilterWhere(['like', 'serviser.prezime', $this->serviser])
-			->andFilterWhere(['like', 'korisnik.ime', $this->korisnik])
-			->orFilterWhere(['like', 'korisnik.prezime', $this->korisnik]);
+            ->andFilterWhere(['like', 'prijavio.ime', $this->prijavio])
+			->orFilterWhere(['like', 'prijavio.prezime', $this->prijavio])
+			->andFilterWhere(['like', 'zaprimio.ime', $this->zaprimio])
+			->orFilterWhere(['like', 'zaprimio.prezime', $this->zaprimio]);
 
         return $dataProvider;
     }

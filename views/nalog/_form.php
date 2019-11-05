@@ -4,8 +4,8 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use app\models\Korisnik;
-use app\models\Serviser;
 use app\models\Os;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Nalog */
@@ -13,17 +13,22 @@ use app\models\Os;
 ?>
 
 <div class="nalog-form">
- <div class="row" style="margin:70px 50px 20px; background-color:#f7f7f7;padding:20px;border-radius:3px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+ <div class="row" style="margin:20px 50px 20px; background-color:#f7f7f7;padding:20px;border-radius:3px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
   <div class="col-md-6">
     <?php $form = ActiveForm::begin(); ?>
 
-   	<?= $form->field($model, 'osID')->textInput()->label('Osnovno sredstvo')
-			 ->dropDownList(ArrayHelper::map(Os::find()
-			 ->select(['nazivOs', 'osID'])->all(), 'osID', 'nazivOs'),
-			 ['class'=>'form-control inline-block', 'prompt'=>' '])
-	?>
 
-	<?= $form->field($model, 'korisnikID')
+
+    <?= $form->field($model, 'osID')->label('Osnovno sredstvo')->widget(Select2::classname(), [
+		'data' =>ArrayHelper::map(Os::find()
+			 ->select(['nazivOs', 'osID'])->all(), 'osID', 'nazivOs'),
+		'language' => 'en',
+		'options' => ['placeholder' => 'Izaberi sredstvo..'],
+		'pluginOptions' => [ 'allowClear' => true ],
+	]);
+    ?>
+
+	<?= $form->field($model, 'prijavio')
 			 ->dropDownList(ArrayHelper::map(Korisnik::find()
 			 ->select(['ime', 'prezime', 'korisnikID'])->all(), 'korisnikID','punoImeKorisnika'),
 			 ['class'=>'form-control inline-block', 'prompt'=>' '])   
@@ -31,16 +36,16 @@ use app\models\Os;
 
 
 	<?= $form->field($model, 'zaprimioNalog')
-			 ->dropDownList(ArrayHelper::map(Serviser::find()
-			 ->select(['ime','prezime', 'serviserID'])->all(), 'serviserID', 'punoImeServisera'),
+			 ->dropDownList(ArrayHelper::map(Korisnik::find()
+			 ->select(['ime','prezime', 'korisnikID'])->all(), 'korisnikID', 'punoImeKorisnika'),
 			 ['class'=>'form-control inline-block', 'prompt'=>' '])
 	?>
 
 
 
 	<?= $form->field($model, 'izvrsavaNalog')
-			 ->dropDownList(ArrayHelper::map(Serviser::find()
-			 ->select(['ime','prezime', 'serviserID'])->all(), 'serviserID', 'punoImeServisera'),
+			 ->dropDownList(ArrayHelper::map(Korisnik::find()
+			 ->select(['ime','prezime', 'korisnikID'])->all(), 'korisnikID', 'punoImeKorisnika'),
 			 ['class'=>'form-control inline-block', 'prompt'=>' '])
 	?>
 	<div class="form-group" style="margin-top:30px;">

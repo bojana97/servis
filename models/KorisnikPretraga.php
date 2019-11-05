@@ -15,18 +15,17 @@ class KorisnikPretraga extends Korisnik
      * {@inheritdoc}
      */
 
+
 	 public $korisnik;
-	 public $sektor;
     public function rules()
     {
         return [
-            [['korisnikID', 'sektorID'], 'integer'],
-            [['ime', 'prezime', 'korisnik', 'sektor', 'telefon', 'email', 'lozinka', 'korisnickoIme'], 'safe'],
+            [['korisnikID', 'sektorID', 'ulogaID'], 'integer'],
+            [['ime', 'prezime', 'korisnik', 'telefon', 'email', 'korisnickoIme', 'lozinka'], 'safe'],
         ];
     }
 
     /**
-     * {@inheritdoc}
      * {@inheritdoc}
      */
     public function scenarios()
@@ -45,11 +44,12 @@ class KorisnikPretraga extends Korisnik
     public function search($params)
     {
         $query = Korisnik::find();
-		$query->innerJoinWith('sektor');
+
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+			'pagination' => [ 'pageSize' => 6 ],
         ]);
 
         $this->load($params);
@@ -60,10 +60,13 @@ class KorisnikPretraga extends Korisnik
             return $dataProvider;
         }
 
+        $query->andFilterWhere([
+            'sektorID' => $this->sektorID
+			]);
 
-        $query->andFilterWhere(['like', 'ime', $this->korisnik])
-            ->orFilterWhere(['like', 'prezime', $this->korisnik])
-			->andFilterWhere(['like', 'sektor.naziv', $this->sektor]);
+        $query->andFilterWhere(['like', 'korisnik.ime', $this->korisnik])
+            ->orFilterWhere(['like', 'korisnik.prezime', $this->korisnik]);
+	
 
         return $dataProvider;
     }
