@@ -36,23 +36,33 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-        //  ['label' => 'Home', 'url' => ['/site/index']],
-        //    ['label' => 'About', 'url' => ['/site/about']],
-        //    ['label' => 'Contact', 'url' => ['/site/contact']],
-			  ['label' => 'Nalozi', 'url' => ['/nalog/index']],
-			  ['label' => 'Sredstva', 'url' => ['/os/index']],
-			  ['label' => 'Korisnici', 'url' => ['/korisnik/index']],
-			 // ['label' => 'Serviseri', 'url' => ['/serviser/index']],
+			  [
+			  'label' => 'Nalozi',
+			  'url' => ['/nalog/index'],
+			  ],
+
+			  [
+			  'label' => 'Sredstva', 
+			  'url' => ['/os/index'],
+			  'visible'=>Yii::$app->user->can('pregledajSredstva'),
+			  ],
+
+			  [
+			  'label' => 'Korisnici',
+			  'url' => ['/korisnik/index'],
+			  'visible'=>Yii::$app->user->can('pregledajKorisnike'),
+			  ],
 
             Yii::$app->user->isGuest ? (['label' => 'Prijavi se', 'url' => ['/site/login']]) : 
 			(
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Odjavi se (' . Yii::$app->user->identity->korisnickoIme . ')',
+                    'Odjavi se (' . Yii::$app->user->identity->ime .' '.  Yii::$app->user->identity->prezime .')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
@@ -60,8 +70,10 @@ AppAsset::register($this);
             )
         ],
     ]);
+
     NavBar::end();
     ?>
+	
 
     <div class="container">
         <?= Breadcrumbs::widget([
@@ -73,6 +85,7 @@ AppAsset::register($this);
         <?= $content ?>
     </div>
 </div>
+
 <!--
 <footer class="footer">
     <div class="container">

@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Izmijeni');
 
     <h4 class='text-center'><?= Html::encode($this->title) ?></h4>
 
-    <?= $this->render('_form', [
+    <?= $this->render('_updateForm', [
         'model' => $model,
     ]) ?>
 

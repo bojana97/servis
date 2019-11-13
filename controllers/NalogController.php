@@ -7,7 +7,10 @@ use app\models\Nalog;
 use app\models\NalogPretraga;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+
 
 /**
  * NalogController implements the CRUD actions for Nalog model.
@@ -20,6 +23,28 @@ class NalogController extends Controller
     public function behaviors()
     {
         return [
+			 'access' => [
+				'class' => AccessControl::className(),
+				'rules' => [
+					[
+						'actions' => ['index','view', 'update', 'create'],                                     
+						'allow' => true,
+						'roles' => ['serviser'],
+					],
+					[   
+						'allow' => true,  
+						'roles' => [ 'administrator'],
+					], 
+					[   
+						'actions' => ['index', 'create', 'update', 'view', 'delete'],                                     
+						'allow' => true,  
+						'roles' => [ 'korisnik'],
+					],  
+
+
+				],
+			 ], 
+
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -36,6 +61,11 @@ class NalogController extends Controller
     public function actionIndex()
     {
         $searchModel = new NalogPretraga();
+
+		if (!Yii::$app->user->can('pregledajNaloge')){
+			$searchModel->prijavio = Yii::$app->user->id;
+		}
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -52,9 +82,14 @@ class NalogController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+
+		$model=$this->findModel($id);
+
+	    if (\Yii::$app->user->can('pregledajNalog', ['model' => $model])){
+			return $this->render('view', ['model' => $model, ]);
+		}else{
+			throw new ForbiddenHttpException();
+		}
     }
 
     /**
@@ -65,7 +100,6 @@ class NalogController extends Controller
     public function actionCreate()
     {
         $model = new Nalog();
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->nalogID]);
         }
@@ -82,17 +116,22 @@ class NalogController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
+    public function actionUpdate($id){
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->nalogID]);
-        }
+		$model = $this->findModel($id);
+        if (\Yii::$app->user->can('izmjenaNaloga', ['model' => $model])){
+		
+			if ($model->load(Yii::$app->request->post()) && $model->save()) {
+				return $this->redirect(['view', 'id' => $model->nalogID]);
+			}
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+			return $this->render('update', [
+				'model' => $model,
+			]);
+
+		}else{
+			throw new ForbiddenHttpException('You have no bla bla..');
+		}
     }
 
     /**
@@ -103,10 +142,17 @@ class NalogController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
+    {     
+		$model = $this->findModel($id);
+		if (\Yii::$app->user->can('brisanjeNaloga', ['model' => $model]))
+		{
+			$model->delete();
+			return $this->redirect(['index']);
 
-        return $this->redirect(['index']);
+		} else
+		{
+			throw new ForbiddenHttpException('ne mos brisatiii');
+		}
     }
 
     /**

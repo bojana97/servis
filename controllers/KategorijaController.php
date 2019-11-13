@@ -10,6 +10,7 @@ use app\models\AtributiKategorije;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * KategorijaController implements the CRUD actions for Kategorija model.
@@ -22,6 +23,16 @@ class KategorijaController extends Controller
     public function behaviors()
     {
         return [
+			'access' => [
+				'class' => AccessControl::className(),
+				'rules' => [
+					[    // all the actions are accessible only to administrator
+						'allow' => true,  
+						'roles' => [ 'administrator'],
+					],   
+				],
+			], 
+
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

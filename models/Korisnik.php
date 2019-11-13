@@ -41,7 +41,7 @@ class Korisnik extends \yii\db\ActiveRecord implements \yii\web\IdentityInterfac
     public function rules()
     {
         return [
-            [['ime', 'prezime', 'email', 'korisnickoIme', 'lozinka', 'sektorID', 'ulogaID'], 'required'],
+            [['ime', 'prezime', 'email', 'korisnickoIme', 'lozinka', 'sektorID'], 'required'],
             [['sektorID', 'ulogaID'], 'integer'],
             [['ime', 'prezime'], 'string', 'max' => 50],
             [['telefon'], 'string', 'max' => 20],
@@ -72,6 +72,31 @@ class Korisnik extends \yii\db\ActiveRecord implements \yii\web\IdentityInterfac
 			'autentKljuc'=>Yii::t('app', 'Autentikacijski kljuc'),
         ];
     }
+
+
+	/**
+ * Returns user role name according to RBAC
+ * @return string
+ */
+public function getRoleName()
+{
+    $roles = Yii::$app->authManager->getRolesByUser($this->id);
+    if (!$roles) {
+        return null;
+    }
+
+    reset($roles);
+    /* @var $role \yii\rbac\Role */
+    $role = current($roles);
+
+    return $role->name;
+}
+
+
+
+
+
+
 
     /**
      * @return \yii\db\ActiveQuery

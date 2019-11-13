@@ -8,6 +8,7 @@ use app\models\VrijednostAtributaPretraga;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * VrijednostAtributaController implements the CRUD actions for VrijednostAtributa model.
@@ -20,6 +21,16 @@ class VrijednostAtributaController extends Controller
     public function behaviors()
     {
         return [
+			'access' => [
+				'class' => AccessControl::className(),
+				'rules' => [
+					[    // all the actions are accessible only to administrator
+						'allow' => true,  
+						'roles' => [ 'administrator'],
+					],   
+				],
+			], 
+
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

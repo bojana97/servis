@@ -17,13 +17,13 @@ class NalogPretraga extends Nalog
 
 	 public $nazivOs;
 	 public $prijavio;
-	 public $zaprimio;
+
 
     public function rules()
     {
         return [
-            [['nalogID', 'osID', 'zaprimioNalog', 'izvrsavaNalog'], 'integer'],
-            [['datOtvaranja', 'nazivOs', 'prijavio','zaprimio','datZatvaranja', 'opis', 'statusNaloga'], 'safe'],
+            [['nalogID', 'osID'], 'integer'],
+            [['datOtvaranja', 'nazivOs', 'prijavio','datZatvaranja', 'opis', 'statusNaloga'], 'safe'],
         ];
     }
 
@@ -48,13 +48,13 @@ class NalogPretraga extends Nalog
         $query = Nalog::find();
 		$query->innerJoinWith('os');
 		$query->innerJoinWith('prijavioNalog as prijavio');
-		$query->innerJoinWith('zaprimioNalog0 as zaprimio');
+
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-			'pagination' => [ 'pageSize' => 6 ],
+			'pagination' => [ 'pageSize' => 7],
         ]);
 
         $this->load($params);
@@ -74,8 +74,7 @@ class NalogPretraga extends Nalog
         $query ->andFilterWhere(['like', 'nazivOs', $this->nazivOs])
             ->andFilterWhere(['like', 'prijavio.ime', $this->prijavio])
 			->orFilterWhere(['like', 'prijavio.prezime', $this->prijavio])
-			->andFilterWhere(['like', 'zaprimio.ime', $this->zaprimio])
-			->orFilterWhere(['like', 'zaprimio.prezime', $this->zaprimio]);
+			->orFilterWhere(['=', 'prijavio.korisnikID', $this->prijavio]);
 
         return $dataProvider;
     }

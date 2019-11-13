@@ -8,6 +8,8 @@ use app\models\AtributPretraga;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+
 
 /**
  * AtributController implements the CRUD actions for Atribut model.
@@ -20,6 +22,16 @@ class AtributController extends Controller
     public function behaviors()
     {
         return [
+			'access' => [
+				'class' => AccessControl::className(),
+				'rules' => [
+					[    // all the actions are accessible only to administrator
+						'allow' => true,  
+						'roles' => [ 'administrator'],
+					],   
+				],
+			], 
+
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

@@ -46,6 +46,10 @@ $config = [
                 ],
             ],
         ],
+		
+		'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
 
         'db' => $db,
 		'charset'=> 'utfmb4',
@@ -58,6 +62,25 @@ $config = [
         ],
         
     ],
+	 
+	'as access' => [
+        'class' => \yii\filters\AccessControl::className(),
+        'rules' => [
+
+            [
+                'actions' => ['login', 'error'],
+                'allow' => true,
+            ],
+
+            [
+                'actions' => ['logout', 'index', 'view', 'update', 'delete', 'create'], 
+                'allow' => true,
+                'roles' => ['@'],
+            ],
+        ],
+    ],
+
+
     'params' => $params,
 ];
 

@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use Yii;
+use yii\filters\AccessControl;
 use app\models\Os;
 use app\models\OsPretraga;
 use yii\web\Controller;
@@ -20,6 +21,22 @@ class OsController extends Controller
     public function behaviors()
     {
         return [
+		    'access' => [
+            'class' => AccessControl::className(),
+            'rules' => [
+                [
+                    'actions' => ['index','view'],                                     //only the yourRole1 and yourRole2
+                    'allow' => true,
+                    'roles' => ['serviser'],
+                ],
+                [    // all the actions are accessible administrator
+                    'allow' => true,  
+                    'roles' => [ 'administrator'],
+                ],   
+            ],
+          ],  
+
+
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

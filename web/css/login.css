@@ -1,0 +1,43 @@
+﻿html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    background-repeat: no-repeat;
+    background: linear-gradient(to bottom, #FFFFFF, #4682B4 );
+    color: #696969;
+}
+
+
+#content-div {
+    margin:120px auto;
+    background-color:white;
+    border-radius: 3%;
+    width:30%;
+}
+
+#login-forma {
+    padding: 60px 80px 50px;
+}
+
+.labels {
+    font-weight: 300;
+    text-transform: uppercase;
+    margin-top:30px;
+}
+
+.inputs {
+    width: 100%;
+    padding: 7px 20px;
+    border-radius: 3px;
+    border: 1px solid #DCDCDC;
+}
+
+
+#log-btn{
+    margin-top: 25px;
+    padding: 7px 25px;
+    letter-spacing: 1px;
+
+}

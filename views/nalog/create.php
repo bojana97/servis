@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="nalog-create">
 
 
-    <?= $this->render('_form', [
+    <?= $this->render('_createForm', [
         'model' => $model,
     ]) ?>
 

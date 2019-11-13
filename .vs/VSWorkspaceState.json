@@ -1,12 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\assets",
-    "\\views",
-    "\\views\\nalog",
-    "\\web",
-    "\\web\\js"
+    "\\controllers"
   ],
-  "SelectedNode": "\\views\\nalog\\index.php",
+  "SelectedNode": "\\controllers\\NalogController.php",
   "PreviewInSolutionExplorer": false
 }

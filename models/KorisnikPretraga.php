@@ -20,7 +20,7 @@ class KorisnikPretraga extends Korisnik
     public function rules()
     {
         return [
-            [['korisnikID', 'sektorID', 'ulogaID'], 'integer'],
+            [['korisnikID', 'sektorID'], 'integer'],
             [['ime', 'prezime', 'korisnik', 'telefon', 'email', 'korisnickoIme', 'lozinka'], 'safe'],
         ];
     }

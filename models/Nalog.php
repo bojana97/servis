@@ -1,6 +1,7 @@
 <?php
 
 namespace app\models;
+use yii\behaviors\BlameableBehavior;
 
 use Yii;
 
@@ -38,15 +39,15 @@ class Nalog extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['osID', 'prijavio', 'zaprimioNalog'], 'required'],
-            [['osID', 'prijavio', 'zaprimioNalog', 'izvrsavaNalog'], 'integer'],
+            [['osID'], 'required'],
+            [['osID', 'prijavio', 'zaprimioNalog'], 'integer'],
             [['datOtvaranja', 'datZatvaranja'], 'safe'],
             [['statusNaloga'], 'string'],
-            [['opis'], 'string', 'max' => 255],
+			[['statusNaloga'], 'default', 'value'=> 'na cekanju'],
+			[['opis'], 'string', 'max' => 255],
             [['osID'], 'exist', 'skipOnError' => true, 'targetClass' => Os::className(), 'targetAttribute' => ['osID' => 'osID']],
             [['prijavio'], 'exist', 'skipOnError' => true, 'targetClass' => Korisnik::className(), 'targetAttribute' => ['prijavio' => 'korisnikID']],
             [['zaprimioNalog'], 'exist', 'skipOnError' => true, 'targetClass' => Korisnik::className(), 'targetAttribute' => ['zaprimioNalog' => 'korisnikID']],
-            [['izvrsavaNalog'], 'exist', 'skipOnError' => true, 'targetClass' => Korisnik::className(), 'targetAttribute' => ['izvrsavaNalog' => 'korisnikID']],
         ];
     }
 
@@ -60,13 +61,26 @@ class Nalog extends \yii\db\ActiveRecord
             'osID' => Yii::t('app', 'ID osnovnog sredstva'),
             'prijavio' => Yii::t('app', 'Prijavio korisnik'),
             'zaprimioNalog' => Yii::t('app', 'Zaprimio nalog'),
-            'izvrsavaNalog' => Yii::t('app', 'Izvrsava nalog'),
             'datOtvaranja' => Yii::t('app', 'Datum otvaranja naloga'),
             'datZatvaranja' => Yii::t('app', 'Datum zatvaranja naloga'),
-            'opis' => Yii::t('app', 'Opis'),
+            'opis' => Yii::t('app', 'Opis kvara'),
             'statusNaloga' => Yii::t('app', 'Status naloga'),
         ];
     }
+
+
+    public function behaviors()
+    {
+		return [
+		          [
+                      'class' => BlameableBehavior::className(),
+                      'createdByAttribute' => 'prijavio',
+					  'updatedByAttribute'=> false,
+                  ],
+		];
+		
+    }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -85,13 +99,6 @@ class Nalog extends \yii\db\ActiveRecord
         return $this->hasOne(Korisnik::className(), ['korisnikID' => 'zaprimioNalog']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getIzvrsavaNalog0()
-    {
-        return $this->hasOne(Korisnik::className(), ['korisnikID' => 'izvrsavaNalog']);
-    }
 
 
 	public function getPrijavioNalog()

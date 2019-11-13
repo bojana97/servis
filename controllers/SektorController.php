@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Sektor;
+use yii\filters\AccessControl;
 use app\models\SektorPretraga;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -20,6 +21,17 @@ class SektorController extends Controller
     public function behaviors()
     {
         return [
+
+		    'access' => [
+            'class' => AccessControl::className(),
+            'rules' => [
+                [    // all the actions are accessible administrator
+                    'allow' => true,  
+                    'roles' => [ 'administrator'],
+                ],   
+            ],
+          ],  
+
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
