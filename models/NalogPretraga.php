@@ -54,7 +54,7 @@ class NalogPretraga extends Nalog
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-			'pagination' => [ 'pageSize' => 7],
+			'pagination' => [ 'pageSize' => 8],
         ]);
 
         $this->load($params);

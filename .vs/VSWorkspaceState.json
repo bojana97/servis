@@ -1,8 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\controllers"
+    "\\controllers",
+    "\\models",
+    "\\views",
+    "\\views\\os"
   ],
-  "SelectedNode": "\\controllers\\NalogController.php",
+  "SelectedNode": "\\views\\os\\view.php",
   "PreviewInSolutionExplorer": false
 }

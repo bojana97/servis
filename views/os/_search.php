@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
         ],
     ]); ?>
 
- <div class="row" style="margin:30px 0 20px;">
+ <div class="row" style="margin:20px 0 20px;">
 	<div class="col-md-4">
 	  <?= $form->field($model, 'kategorija')->textInput()->label('Kategorija') ?>
 	  <?= $form->field($model, 'nazivInvBroj')->textInput()->label('Naziv / inventarni broj sredstva') ?>
@@ -26,15 +26,14 @@ use yii\widgets\ActiveForm;
 	</div>
 	
 	<div class="col-md-4">
-	<div class="form-group" style="margin-top:24px;margin-left:25px;">
+	<div class="form-group" style="margin-top:24px;margin-left:10px;">
         <?= Html::submitButton(Yii::t('app', 'Pretrazi'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Resetuj'),['index'], ['class' => 'btn btn-default']) ?>
 	</div>
 	</div>
 
 	<div class="col-md-4">
-	    <?= Html::a(Yii::t('app', 'Unesi novo sredstvo'), ['create'], ['class' => 'btn btn-success', 'style'=>'margin-top:24px;margin-left:100px;']) ?>
-		<?= Html::a(Yii::t('app', 'Podesavanja'), ['kategorija/katindex'], ['class' => 'btn btn-default', 'style'=>'margin-top:24px;margin-left:100px;']) ?>
+	    <?= Html::a(Yii::t('app', 'Novo sredstvo'), ['create'], ['class' => 'btn btn-success', 'style'=>'margin-left:250px;']) ?>
+		<?= Html::a(Yii::t('app', ' Podesavanja'), ['kategorija/katindex'], ['class' => 'btn btn-default', 'style'=>'margin-top:7px;margin-left:257px;background-color:#9F9999;color:white;']) ?>
 	</div>
 </div>
     <?php ActiveForm::end(); ?>

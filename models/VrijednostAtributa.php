@@ -59,9 +59,19 @@ class VrijednostAtributa extends \yii\db\ActiveRecord
 
     /**
      * @return \yii\db\ActiveQuery
-     */
+    */
+
     public function getVrijednostOs()
     {
         return $this->hasMany(VrijednostOs::className(), ['vrijAtrID' => 'vrijAtrID']);
     }
+
+
+	//pokusaj
+	public function getOs()
+    {
+        return $this->hasMany(Os::className(), ['osID' => 'osID'])
+				->via('vrijednostOs');
+	}
+
 }

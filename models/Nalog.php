@@ -69,6 +69,29 @@ class Nalog extends \yii\db\ActiveRecord
     }
 
 
+	public function beforeSave($insert)
+	{
+		if (!parent::beforeSave($insert)) {
+			return false;
+		}
+
+		if(!$insert){
+			//ako je nalog izvrsen unesi datum zatvaranja naloga
+			if($this->statusNaloga == 'Zavrseno'){
+				$this->datZatvaranja = new \yii\db\Expression('NOW()');
+			}
+			
+			//ako je nalog tek u obradi, unesi korisnika koji je zaprimio nalog
+			if($this->statusNaloga == 'U obradi') {
+				$this->zaprimioNalog=Yii::$app->user->getID();
+			}
+		}
+    
+		return true;
+	}
+
+
+
     public function behaviors()
     {
 		return [

@@ -1,0 +1,50 @@
+﻿body
+{
+}
+
+.detailview-container {
+    width: 500px;
+    margin:30px auto 10px;
+}
+
+
+.bg-success {
+    background-color: #BDC5DB;
+    color: #0C3890;
+    font-weight: 300;
+}
+
+.detailview-buttons{
+    width:150px;
+    margin: 0 auto;
+}
+
+.detailview-update, .detailview-delete {
+    text-decoration: none;
+    padding: 8px 12px;
+    border-color: #000000;
+    border-radius: 3px;
+    color: white;
+}
+
+.detailview-delete {
+    background-color: #AB0D28;
+    padding: 8px 15px;
+}
+
+.detailview-update {
+    background-color: #3262A9;
+    margin-right: 4px;
+}
+
+
+    .detailview-update:hover, .detailview-delete:hover {
+        text-decoration: none;
+        cursor: pointer;
+        color: white;
+        padding: 9px 13px;
+    }
+
+.detailview-delete:hover {
+    padding: 9px 16px;
+}

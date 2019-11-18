@@ -8,20 +8,20 @@ use app\models\Atribut;
 use app\models\AtributiKategorije;
 use app\models\VrijednostAtributa;
 
-
 $this->title = Yii::t('app', 'Podesavanja kategorija');
 $this->params['breadcrumbs'][] = ['label' => 'Osnovna sredstva', 'url' => ['os/index']];
 $this->params['breadcrumbs'][] = $this->title;
 $niz=[];
-
 ?>
 
-<div class="kategorije-container" style="width:1140px; height:1500px; margin-top:40px;">
+<div class="kategorije-container" style="width:1140px; height:1000px; margin-top:40px;">
 
 <!-- sidebar for displaying all existing categories and their atributtes -->
-<div class="sidebar-cat-atr" style="width:250px; float:left; background-color:#f7f7f7; text-align:center; border-radius:3px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding-bottom:10px;">
-	<?php  foreach($kategorije as $kategorija): ?>
+<div class="sidebar-cat-atr" style="width:250px; float:left; background-color:#f7f7f7; text-align:center; 
+									border-radius:3px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+									padding-bottom:10px;height:500px;overflow:scroll;">
 
+	<?php  foreach($kategorije as $kategorija): ?>
 		<?php if( !in_array( $kategorija ['nazivKat'], $niz)): ?>
 			<hr>
 			<?php $niz[] = $kategorija ['nazivKat']; ?>

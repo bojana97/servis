@@ -27,6 +27,7 @@ class KategorijaController extends Controller
 				'class' => AccessControl::className(),
 				'rules' => [
 					[    // all the actions are accessible only to administrator
+						'actions' => ['index','view', 'create', 'katindex', 'update', 'delete'],  
 						'allow' => true,  
 						'roles' => [ 'administrator'],
 					],   

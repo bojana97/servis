@@ -62,7 +62,7 @@ $config = [
         ],
         
     ],
-	 
+/*	 
 	'as access' => [
         'class' => \yii\filters\AccessControl::className(),
         'rules' => [
@@ -80,7 +80,7 @@ $config = [
         ],
     ],
 
-
+*/
     'params' => $params,
 ];
 

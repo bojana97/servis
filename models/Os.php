@@ -93,11 +93,23 @@ class Os extends \yii\db\ActiveRecord
 
     /**
      * @return \yii\db\ActiveQuery
-     */
+    */
+
     public function getVrijednostOs()
     {
         return $this->hasMany(VrijednostOs::className(), ['osID' => 'osID']);
     }
+	
+
+
+	//pokusaj
+	public function getVrijednostAtributa()
+    {
+        return $this->hasMany(VrijednostAtributa::className(), ['vrijAtrID' => 'vrijAtrID'])
+				->via('vrijednostOs');
+	}
+
+
 
 	public function getInvBroj ()
 	{

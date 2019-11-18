@@ -2,58 +2,60 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-$niz=[];
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Os */
 
-$this->title = $model->nazivOs;
+$this->title = $sredstva[0]->nazivOs;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Osnovna sredstva'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="os-view" style="margin: 50px auto;text-align:center;width:600px;height:300px;">
+<div>
 
-    <h4 style="margin:50px auto;"><?= Html::encode($this->title) ?></h4>
+<div class="detailview-container">
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-  
-            [
-			'label'=>'Inventarni broj',
-			'attribute'=>'invBroj',
-			],
+<table class="table table-bordered">
+  <tbody>
+    <tr>
+      <th class="bg-success" scope="row">Naziv sredstva</th>
+      <td><?= $sredstva[0]->nazivOs ?></td>
+    </tr>
+    <tr>
+      <th class="bg-success" scope="row">Inventarni broj</th>
+      <td><?= $sredstva[0]->invBroj ?></td>
+    </tr>
+    <tr>
+      <th class="bg-success" scope="row">Kategorija</th>
+      <td><?= $sredstva[0]->kat->nazivKat ?></td>
+    </tr>
+	<tr>
+      <th class="bg-success" scope="row">Roditelj</th>
+      <td><?= $sredstva[0]->roditeljID ?></td>
+    </tr>
 
-			[
-			'label'=>'Naziv sredstva',
-			'attribute'=>'nazivOs',
-			],
+	<?php foreach($sredstva[0]->vrijednostAtributa as $vrijednost): ?>
+	<tr>
+      <th class="bg-success" scope="row"><?= $vrijednost->atr->nazivAtr ?></th>
+      <td><?= $vrijednost->vrijednost ?></td>
+    </tr>
+	<?php endforeach; ?>
+  </tbody>
+</table>
+</div>
 
-			[
-			'label'=> 'Dio sredstva',
-			'attribute'=> 'os.nazivOs',
-			'value'=> $model->roditeljID != null ? $model->roditeljID : '-',
-
-			],
-            
-			[
-			'label'=>'Kategorija',
-			'attribute'=>'kat.nazivKat',
-			],
-           
-        ],
-    ]) ?>
-
-	<p>
-        <?= Html::a(Yii::t('app', 'Izmijeni'), ['update', 'id' => $model->osID], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Obrisi'), ['delete', 'id' => $model->osID], [
-            'class' => 'btn btn-danger',
+<div class="detailview-buttons">
+	
+        <?= Html::a(Yii::t('app', 'Izmijeni'), ['update', 'id' => $sredstva[0]->osID], ['class' => 'detailview-update']) ?>
+        <?= Html::a(Yii::t('app', 'Obrisi'), ['delete', 'id' =>  $sredstva[0]->osID], [
+            'class' => 'detailview-delete',
             'data' => [
                 'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
                 'method' => 'post',
             ],
         ]) ?>
-    </p>
+   
+</div>
 
+</div>
 

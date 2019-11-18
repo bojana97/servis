@@ -83,11 +83,13 @@ $this->title = Yii::t('app', 'Nalozi');
 		  	[
 			'label'=>'Datum otvaranja',
 			'value'=>'datOtvaranja',
+			'format' => ['date', 'php:d-m-Y h:i:s'],
 			'headerOptions' => ['style' => 'background-color:#0275d8; color:white; padding:10px;font-size:13px;', 'class' => 'text-center'],
 			],
      		[
 			'label'=>'Datum zatvaranja',
 			'value'=>'datZatvaranja',
+			'format' => ['date', 'php:d-m-Y h:i:s'],
 			'headerOptions' => ['style' => 'background-color:#0275d8; color:white; padding:10px;font-size:13px;', 'class' => 'text-center'],
 			],
 

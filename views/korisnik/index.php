@@ -66,8 +66,13 @@ $this->params['breadcrumbs'][] = $this->title;
 			'headerOptions' => ['style' => 'background-color:#0275d8; color:white; padding:10px;font-size:13px;', 'class' => 'text-center'],
 			],
 
-            ['class' => 'yii\grid\ActionColumn', 'headerOptions' => ['style' => 'background-color:#0275d8; color:white; padding:10px;font-size:13px;', 'class' => 'text-center'],
-],
+            ['class' => 'yii\grid\ActionColumn', 
+				'visibleButtons' => [
+					'update' => Yii::$app->user->can('izmjenaKorisnika'),
+					'delete' => Yii::$app->user->can('brisanjeKorisnika')
+				],
+			  'headerOptions' => ['style' => 'background-color:#0275d8; color:white; padding:10px;font-size:13px;', 'class' => 'text-center'],
+			],
         ],
     ]); ?>
 

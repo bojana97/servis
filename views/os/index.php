@@ -18,8 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
-		'layout'=>"{items}",
-		'summary' => "{begin} - {end} of {totalCount} items",
+		'layout' => "{summary}{items}<div class='text-center'>{pager}</div>",
+		'summary' => "Prikaz {begin} - {end} od ukupno {totalCount} rekorda",
 		'rowOptions' => function ($model, $key, $index, $grid) {
                     return [
                         'style' => "cursor: pointer; background-color:#E6E6FA; 
@@ -54,8 +54,13 @@ $this->params['breadcrumbs'][] = $this->title;
 			],
 
             ['class' => 'yii\grid\ActionColumn',
+			  'visibleButtons' => [
+					'update' => Yii::$app->user->can('izmjenaSredstva'),
+					'delete' => Yii::$app->user->can('brisanjeSredstva')
+			  ],
+
 			'headerOptions' => ['style' => 'background-color:#0275d8; color:white; padding:10px; font-size:13px;', 'class' => 'text-center'],
-],
+			],
         ],
     ]); ?>
 
