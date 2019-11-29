@@ -11,12 +11,13 @@ $this->title = Yii::t('app', 'Izmijeni atribut: {name}', [
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Ispis atributa'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Izmijeni');
 ?>
-<div class="atribut-update" style="margin-top:70px;">
+<div class="atribut-update" >
 
     <h4 style="text-align:center;"><?= Html::encode($this->title) ?></h4>
 
     <?= $this->render('_form', [
         'modelAtribut' => $modelAtribut,
+		'modelsVrijednostAtributa' => $modelsVrijednostAtributa,
     ]) ?>
 
 </div>

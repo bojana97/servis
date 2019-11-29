@@ -14,6 +14,7 @@ class AtributPretraga extends Atribut
     /**
      * {@inheritdoc}
      */
+
     public function rules()
     {
         return [
@@ -42,24 +43,21 @@ class AtributPretraga extends Atribut
     {
         $query = Atribut::find();
 
-        // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+			'pagination' => [ 'pageSize' => 10 ],
         ]);
 
-        $this->load($params);
+        
+		$this->load($params);
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
+             //uncomment the following line if you do not want to return any records when validation fails
+             //$query->where('0=1');
             return $dataProvider;
         }
 
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'atrID' => $this->atrID,
-        ]);
+        // grid filtering conditions4
 
         $query->andFilterWhere(['like', 'nazivAtr', $this->nazivAtr]);
 

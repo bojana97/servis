@@ -1,11 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\controllers",
     "\\models",
     "\\views",
-    "\\views\\os"
+    "\\views\\atribut",
+    "\\views\\nalog",
+    "\\web",
+    "\\web\\css"
   ],
-  "SelectedNode": "\\views\\os\\view.php",
+  "SelectedNode": "\\web\\css\\detailView.css",
   "PreviewInSolutionExplorer": false
 }

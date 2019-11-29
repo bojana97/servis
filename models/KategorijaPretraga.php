@@ -46,6 +46,7 @@ class KategorijaPretraga extends Kategorija
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+			'pagination' => [ 'pageSize' => 7 ],
         ]);
 
         $this->load($params);

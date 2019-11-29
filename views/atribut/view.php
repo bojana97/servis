@@ -4,34 +4,43 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Atribut */
+/* @var $model app\models\Atribut 
 
-$this->title = $model->atrID;
+$this->title = $model[0]->atrID;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Atributs'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+*/
+
+$this->title = $model[0]->nazivAtr;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Atributi'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+
 ?>
-<div class="atribut-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="atribut-detailview" >
+	<table class="table table-bordered">
+	  <tbody>
+		<tr>
+		  <td class="bg-success"><b><?= $model[0]->nazivAtr ?></b></td>
+		</tr>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->atrID], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->atrID], [
-            'class' => 'btn btn-danger',
-            'data' => [
+		<?php foreach($model[0]->vrijednostAtributas as $vrijednost): ?>
+			<tr>
+			  <td><?= $vrijednost->vrijednost ?></td>
+			</tr>
+		<?php endforeach; ?>
+	  </tbody>
+	</table>
+</div>
+
+<div class="detailview-buttons">
+     <?= Html::a(Yii::t('app', 'Izmijeni'), ['update', 'id' => $model[0]->atrID], ['class' => 'detailview-update']) ?>
+     <?= Html::a(Yii::t('app', 'Obrisi'), ['delete', 'id' =>  $model[0]->atrID], [
+         'class' => 'detailview-delete',
+         'data' => [
                 'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
                 'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'atrID',
-            'nazivAtr',
-        ],
-    ]) ?>
-
+		 ],
+     ]) ?> 
 </div>

@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\base\Model;
 
 /**
  * This is the model class for table "atribut".

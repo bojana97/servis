@@ -3,8 +3,10 @@
 namespace app\controllers;
 
 use Yii;
+use yii\base\Model;
 use app\models\VrijednostAtributa;
 use app\models\VrijednostAtributaPretraga;
+use app\models\Atribut;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -56,21 +58,14 @@ class VrijednostAtributaController extends Controller
 							->orderBy('nazivAtr ASC')
 							->all();
 
-
-
-		$model = new VrijednostAtributa();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			Yii::$app->session->setFlash('success', 'Vrijednost je uspjesno sacuvana!');
-			 return $this->redirect('index');
-        }
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
 			'atributiVrijednosti' => $atributiVrijednosti,
-			'model'=>$model,
         ]);
     }
+
+
 
     /**
      * Displays a single VrijednostAtributa model.
@@ -89,7 +84,7 @@ class VrijednostAtributaController extends Controller
      * Creates a new VrijednostAtributa model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
-     */
+   */
     public function actionCreate()
     {
         $model = new VrijednostAtributa();
@@ -103,6 +98,39 @@ class VrijednostAtributaController extends Controller
             'model' => $model,
         ]);
     }
+	
+	/*
+
+	public function actionCreate(){
+
+			//Find out how many products have been submitted by the form
+			$count = count(Yii::$app->request->post('VrijednostAtributa', []));
+
+			//Send at least one model to the form
+			$vrijednosti = [new VrijednostAtributa()];
+
+			//Create an array of the products submitted
+			for($i = 1; $i < $count; $i++) {
+				$vrijednosti[] = new VrijednostAtributa();
+			}
+
+			//Load and validate the multiple models
+			if (Model::loadMultiple($vrijednosti, Yii::$app->request->post()) && Model::validateMultiple($vrijednosti)) {
+
+				foreach ($vrijednosti as $vrijednost) {
+
+					//Try to save the models. Validation is not needed as it's already been done.
+					$vrijednost->save(false);
+
+				}
+				Yii::$app->session->setFlash('succes', 'Vrijednost atributa uspjesno unesena!');
+				return $this->redirect('index');
+			}
+
+		return $this->render('create', ['vrijednosti' => $vrijednosti]);
+		
+	}
+	*/
 
     /**
      * Updates an existing VrijednostAtributa model.
@@ -111,6 +139,7 @@ class VrijednostAtributaController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
+
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -123,6 +152,7 @@ class VrijednostAtributaController extends Controller
             'model' => $model,
         ]);
     }
+	
 
     /**
      * Deletes an existing VrijednostAtributa model.
@@ -153,4 +183,25 @@ class VrijednostAtributaController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

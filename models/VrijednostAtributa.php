@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 
+
 /**
  * This is the model class for table "vrijednost_atributa".
  *
@@ -30,7 +31,6 @@ class VrijednostAtributa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atrID'], 'required'],
             [['atrID'], 'integer'],
             [['vrijednost'], 'string', 'max' => 60],
             [['atrID'], 'exist', 'skipOnError' => true, 'targetClass' => Atribut::className(), 'targetAttribute' => ['atrID' => 'atrID']],
