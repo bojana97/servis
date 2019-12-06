@@ -6,30 +6,22 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Nalog;
 
-/**
- * NalogPretraga represents the model behind the search form of `app\models\Nalog`.
- */
 class NalogPretraga extends Nalog
 {
-    /**
-     * {@inheritdoc}
-     */
 
-	 public $nazivOs;
-	 public $prijavio;
+	public $nazivOs;
+	public $prijavio;
+	public $datum;
 
 
     public function rules()
     {
         return [
             [['nalogID', 'osID'], 'integer'],
-            [['datOtvaranja', 'nazivOs', 'prijavio','datZatvaranja', 'opis', 'statusNaloga'], 'safe'],
+            [['datOtvaranja', 'nazivOs', 'prijavio','datZatvaranja', 'opis', 'datum', 'statusNaloga'], 'safe'],
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
@@ -69,12 +61,15 @@ class NalogPretraga extends Nalog
         $query->andFilterWhere([
             'nalogID' => $this->nalogID,
             'statusNaloga' => $this->statusNaloga,
+			
         ]);
 
         $query ->andFilterWhere(['like', 'nazivOs', $this->nazivOs])
             ->andFilterWhere(['like', 'prijavio.ime', $this->prijavio])
 			->orFilterWhere(['like', 'prijavio.prezime', $this->prijavio])
-			->orFilterWhere(['=', 'prijavio.korisnikID', $this->prijavio]);
+			->orFilterWhere(['=', 'prijavio.korisnikID', $this->prijavio])
+			->andFilterWhere(['like', 'datOtvaranja', $this->datum])
+			->orFilterWhere(['like', 'datZatvaranja', $this->datum]);
 
         return $dataProvider;
     }

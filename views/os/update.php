@@ -18,6 +18,8 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Izmijeni');
 
     <?= $this->render('_form', [
         'model' => $model,
+		'modelsVrijednost'=>$modelsVrijednost,
+		'modelAtribut'=>$modelAtribut,
     ]) ?>
 
 </div>

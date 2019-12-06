@@ -75,6 +75,12 @@ class Kategorija extends \yii\db\ActiveRecord
         return $this->hasMany(Kategorija::className(), ['roditeljID' => 'katID']);
     }
 
+	public function getAtributi(){
+		return $this->hasMany(Atribut::className(), ['atrID' => 'atrID'] )
+				->viaTable('atributi_kategorije', ['katID' => 'katID'] );
+	}
+
+
     /**
      * @return \yii\db\ActiveQuery
      */

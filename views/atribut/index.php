@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Podesavanja kategori
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 				
-<?= Html::a(Yii::t('app', 'Novi atribut'), ['index'], ['class' => 'btn  btn-success', 'style'=>'float:right;margin:0 0 25px;']) ?>
+<?= Html::a(Yii::t('app', 'Novi atribut'), ['create'], ['class' => 'btn  btn-success', 'style'=>'float:right;margin:0 0 25px;']) ?>
 
 <div class="atribut-index" style="width:800px;margin:40px auto 0px;">
 

@@ -30,7 +30,7 @@ class Atribut extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nazivAtr'], 'required'],
+            [['nazivAtr'], 'required', 'message'=>'Polje ne smije biti prazno!'],
             [['nazivAtr'], 'string', 'max' => 40],
         ];
     }
@@ -54,6 +54,12 @@ class Atribut extends \yii\db\ActiveRecord
         return $this->hasMany(AtributiKategorije::className(), ['atrID' => 'atrID']);
     }
 
+	public function getKategorije(){
+		return $this->hasMany(Kategorija::className(), ['katID' => 'katID'] )
+				->viaTable('atributi_kategorije', ['atrID' => 'atrID'] );
+	}
+
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -61,4 +67,10 @@ class Atribut extends \yii\db\ActiveRecord
     {
         return $this->hasMany(VrijednostAtributa::className(), ['atrID' => 'atrID']);
     }
+
+	public static function getPa($model){
+	print_r($model);
+		return self::render('update', [
+            'model' => $model,
+        ]);}
 }

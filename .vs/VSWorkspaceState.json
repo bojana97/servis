@@ -1,13 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\models",
-    "\\views",
-    "\\views\\atribut",
     "\\views\\nalog",
-    "\\web",
-    "\\web\\css"
+    "\\views\\os",
+    "\\web\\js"
   ],
-  "SelectedNode": "\\web\\css\\detailView.css",
+  "SelectedNode": "\\views",
   "PreviewInSolutionExplorer": false
 }

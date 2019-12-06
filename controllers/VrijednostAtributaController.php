@@ -186,6 +186,24 @@ class VrijednostAtributaController extends Controller
 
 
 
+	//SELECT  vrijednost from vrijednost_atributa WHERE atrID=1;
+
+   public function actionLists($id){
+		$countVrijednosti = VrijednostAtributa::find()
+										->where(['atrID'=>$id])
+										->count();
+		if($countVrijednosti > 0){
+
+			$vrijednosti = VrijednostAtributa::find()
+										->where(['atrID'=>$id])
+										->all();
+			foreach($vrijednosti as $vrijednost){
+				echo "<option value='" . $vrijednost->vrijAtrID ."'>" .$vrijednost->vrijednost ."</option>";
+			}
+		}else{
+				echo "<option></option>";
+		}
+	}
 
 
 

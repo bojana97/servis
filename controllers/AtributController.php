@@ -299,6 +299,56 @@ class AtributController extends Controller
     }
 
 
+	public function actionLists($id){
+
+		$countAtributi = Atribut::find()->innerJoinWith('kategorije')
+								->where(['kategorija.katID'=>$id])
+								->count();
+
+		if($countAtributi > 0){
+			$atributi = Atribut::find()->innerJoinWith('kategorije')
+								->where(['kategorija.katID'=>$id])
+								->asArray()
+								->all();
+		
+		print_r($atributi);
+
+		/*	foreach($atributi as $atribut){
+				echo $atribut->nazivAtr;
+				echo '<br>';
+				$values=VrijednostAtributa::find()->where(['atrID'=>$atribute->atrID])
+													->all();
+				foreach($values as $value){
+					echo $value->vrijednost;
+					echo '</br>';
+				}
+		}	
+		
+		*/	
+
+		//foreach($atributi as $atribut){
+			//echo "<option value='". $atribut->atrID ."'>" .$atribut->nazivAtr ."</option>";
+
+			//echo "<label>" .$atribut->nazivAtr ."</label>";
+			//$vrijednosti = VrijednostAtributa::find()->where(['atrID' => $atribut->atrID])->all();
+			//echo '<select>';
+			//Atribut::getPa($vrijednosti);
+			//echo '</select>';
+		//	echo '<br>';
+
+		//}
+
+	}else{
+		//echo "<option></option>";
+	}
+
+		
+	}
+
+
+
+
+
 }
 
 

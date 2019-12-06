@@ -11,18 +11,12 @@ $this->title = Yii::t('app', 'Sektor');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="sektor-index">
-
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Novi sektor'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+   
+    <?= Html::a(Yii::t('app', 'Novi sektor'), ['create'], ['class' => 'btn btn-success', 'style'=>'float:right; margin-bottom:15px;']) ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-         'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => '-'],
+        'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => '-'],
 		'layout'=>"{items}",
 		'summary' => "{begin} - {end} of {totalCount} items",
 		'rowOptions' => function ($model, $key, $index, $grid) {
@@ -35,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn', 'headerOptions' => ['style' => 'background-color:#0275d8; color:white; padding:10px;font-size:15px', 'class' => 'text-center']],
 
-         [
+			[
 			'label'=>'Sektor',
 			'value'=>'naziv',
 			'headerOptions' => ['style' => 'background-color:#0275d8; color:white; padding:10px;font-size:15px', 'class' => 'text-center'],
@@ -45,7 +39,5 @@ $this->params['breadcrumbs'][] = $this->title;
 			],
         ],
     ]); ?>
-
-    <?php Pjax::end(); ?>
 
 </div>

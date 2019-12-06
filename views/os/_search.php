@@ -33,7 +33,6 @@ use yii\widgets\ActiveForm;
 
 	<div class="col-md-4">
 	    <?= Html::a(Yii::t('app', 'Novo sredstvo'), ['create'], ['class' => 'btn btn-success', 'style'=>'margin-left:250px;']) ?>
-		<?= Html::a(Yii::t('app', ' Podesavanja'), ['kategorija/katindex'], ['class' => 'btn btn-default', 'style'=>'margin-top:7px;margin-left:257px;background-color:#9F9999;color:white;']) ?>
 	</div>
 </div>
     <?php ActiveForm::end(); ?>

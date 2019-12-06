@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 USE app\models\Sektor;
+use yii\bootstrap\Modal;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\KorisnikPretraga */
@@ -38,8 +40,20 @@ USE app\models\Sektor;
 
 	<div class="col-md-6" style="margin-top:25px;" >
 	   <?= Html::a(Yii::t('app', 'Unos korisnika'), ['create'], ['class' => 'btn btn-success', 'style'=>"float:right;margin-left:10px;"]) ?>
-	   <?= Html::a(Yii::t('app', 'Sektori'), ['/sektor/index'], ['class' => 'btn btn-default', 'style'=>"float:right;"]) ?>
+	   <?= Html::button('Sektori', ['value'=>Yii::$app->urlManager->createUrl('/sektor/index'), 
+					'class'=>'btn btn-default', 'style'=>'float:right;',
+					'id'=>'modelButton'])
+	   ?>
 	</div>
+
+	<?php       
+	   Modal::begin([
+			'id'     => 'model',	
+			'size'   => 'modal-lg',
+		    ]); 
+		echo "<div id='modelContent' style='color:#707070;'></div>";
+	   Modal::end();          
+	?>
  
 
     <?php ActiveForm::end(); ?>

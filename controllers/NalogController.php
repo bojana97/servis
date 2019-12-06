@@ -151,7 +151,7 @@ class NalogController extends Controller
 
 		} else
 		{
-			throw new ForbiddenHttpException('ne mos brisatiii');
+			throw new ForbiddenHttpException('');
 		}
     }
 

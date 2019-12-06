@@ -35,7 +35,7 @@ class Os extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['invBroj', 'katID'], 'required'],
+			[['osID', 'invBroj'], 'required'],
             [['roditeljID', 'katID'], 'integer'],
             [['invBroj'], 'string', 'max' => 10],
             [['nazivOs'], 'string', 'max' => 40],
