@@ -48,11 +48,12 @@ class Atribut extends \yii\db\ActiveRecord
 
     /**
      * @return \yii\db\ActiveQuery
-     */
+    
     public function getAtributiKategorijes()
     {
         return $this->hasMany(AtributiKategorije::className(), ['atrID' => 'atrID']);
     }
+	*/
 
 	public function getKategorije(){
 		return $this->hasMany(Kategorija::className(), ['katID' => 'katID'] )
@@ -68,9 +69,19 @@ class Atribut extends \yii\db\ActiveRecord
         return $this->hasMany(VrijednostAtributa::className(), ['atrID' => 'atrID']);
     }
 
-	public static function getPa($model){
-	print_r($model);
-		return self::render('update', [
-            'model' => $model,
-        ]);}
+
+
+	public static function getAtributByName($nazivAtributa)
+    {
+        $atribut = Atribut::find()->where(['nazivAtr' => $nazivAtributa])->one();
+        if (!$atribut) {
+            $atribut = new Atribut();
+            $atribut->nazivAtr = $nazivAtributa;
+            $atribut->save(false);
+        }
+        return $atribut;
+    }
+
+
+
 }

@@ -9,20 +9,17 @@ use app\models\OsPretraga;
 use app\models\VrijednostOs;
 use app\models\VrijednostAtributa;
 use app\models\Atribut;
+use app\models\Kategorija;
 use app\models\Model;
 use app\base\ParentModel;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-/**
- * OsController implements the CRUD actions for Os model.
- */
+
 class OsController extends Controller
 {
-    /**
-     * {@inheritdoc}
-     */
+
     public function behaviors()
     {
         return [
@@ -34,7 +31,7 @@ class OsController extends Controller
                     'allow' => true,
                     'roles' => ['serviser'],
                 ],
-                [    // all the actions are accessible administrator
+                [  
                     'allow' => true,  
                     'roles' => [ 'administrator'],
                 ],   
@@ -51,10 +48,7 @@ class OsController extends Controller
         ];
     }
 
-    /**
-     * Lists all Os models.
-     * @return mixed
-     */
+ 
     public function actionIndex()
     {
         $searchModel = new OsPretraga();
@@ -66,12 +60,7 @@ class OsController extends Controller
         ]);
     }
 	
-    /**
-     * Displays a single Os model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
     public function actionView($id){
 
 		$sredstva = Os::find()->with('vrijednostAtributa')->where(['osID' => $id])->ALL();
@@ -79,60 +68,61 @@ class OsController extends Controller
     }
 
 
-    /**
-     * Updates an existing Os model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+       /* 
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->osID]);
-        }
+       if ($modelOs->load(Yii::$app->request->post()) && $modelOs->save()) {
+            return $this->redirect(['view', 'id' => $modelOs->osID]);
+       }
+	*/
+
+		$modelOs = $this->findModel($id);
+
+
 
         return $this->render('update', [
-            'model' => $model,
+            'modelOs' => $modelOs,
         ]);
+
+
+
+
     }
 
 
 	 public function actionCreate()
     {
-        $model = new Os();
-		$modelAtribut=new Atribut;
-		$modelsVrijednost = [new VrijednostOs()];
+		$modelOs = new Os();
+		$modelsVrijednostOs = [new VrijednostOs()];
 
+        
+		if($modelOs->load(Yii::$app->request->post())){
+			$modelsVrijednostOs = Model::createMultiple(VrijednostOs::className());
+			Model::loadMultiple($modelsVrijednostOs, Yii::$app->request->post());
 
-		if($model->load(Yii::$app->request->post())){
-		
-			$modelsVrijednost = Model::createMultiple(VrijednostOs::className());
-			Model::loadMultiple($modelsVrijednost, Yii::$app->request->post());
-		
-		            // ajax validation
             if (Yii::$app->request->isAjax) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 return ArrayHelper::merge(
-                    ActiveForm::validateMultiple($modelsVrijednost),
-                    ActiveForm::validate($model)
+                    ActiveForm::validateMultiple($modelsVrijednostOs),
+                    ActiveForm::validate($modelOs)
                 );
             }
-			
+				$valid = $modelOs->validate();
 
-				$valid = $model->validate();
-				$valid = Model::validateMultiple($modelsVrijednost) && $valid;
+				$valid = Model::validateMultiple($modelsVrijednostOs) && $valid;
+
 
 				if ($valid) {
+				
 					$transaction = \Yii::$app->db->beginTransaction();
 
 					try {
-						if ($flag = $model->save(false)) {
-							foreach ($modelsVrijednost as $modelVrijednost) {
-								$modelVrijednost->osID = $model->osID;
-								if (! ($flag = $modelVrijednost->save(false))) {
+						if ($flag = $modelOs->save(false)) {
+							foreach ($modelsVrijednostOs as $modelVrijednostOs) {
+								$modelVrijednostOs->osID = $modelOs->osID;
+								if (! ($flag = $modelVrijednostOs->save(false))) {
 									$transaction->rollBack();
 									break;
 								}
@@ -140,18 +130,18 @@ class OsController extends Controller
 						}
 						if ($flag) {
 							$transaction->commit();
-							return $this->redirect(['view', 'id' => $model->osID]);
+							return $this->redirect(['view', 'id' => $modelOs->osID]);
 						}
 					} catch (Exception $e) {
 						$transaction->rollBack();
 					}
 				}
 		}
+		
 
         return $this->render('create', [
-            'model' => $model,
-			'modelAtribut'=>$modelAtribut,
-			'modelsVrijednost' => (empty($modelsVrijednost)) ? [new VrijednostOs] : $modelsVrijednost,
+            'modelOs' => $modelOs,
+			'modelsVrijednostOs' => (empty($modelsVrijednostOs)) ? [new VrijednostOs] : $modelsVrijednostOs,
 	
         ]);
     }
@@ -160,20 +150,6 @@ class OsController extends Controller
 
 
 
-
-
-
-
-
-
-
-    /**
-     * Deletes an existing Os model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -181,13 +157,7 @@ class OsController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the Os model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Os the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
     protected function findModel($id)
     {
         if (($model = Os::findOne($id)) !== null) {
@@ -196,6 +166,32 @@ class OsController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+
+
+	public function actionList($id)
+	{
+		$modelsVrijednostOs = [new VrijednostOs()];
+
+		$atributiKategorije = Kategorija::find()->innerJoinWith('atributi')
+									->where(['kategorija.katID'=>$id])
+									->asArray()
+									->all();
+
+		$count = Kategorija::find()->innerJoinWith('atributi')
+									->where(['kategorija.katID'=>$id])
+									->count();
+
+        for($i = 1; $i < $count; $i++) {
+             $modelsVrijednostOs[] = new VrijednostOs();
+        }
+									
+		return $this->renderPartial('_form_atributi',
+							['atributiKategorije' => $atributiKategorije,
+							'modelsVrijednostOs' => $modelsVrijednostOs]);	
+	}
+
+
+
 }
 
 

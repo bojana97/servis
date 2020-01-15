@@ -1,7 +1,9 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\jui\DateTimePicker;
+use dosamigos\datepicker\DatePicker;
+
+
 ?>
 
 <div class="nalog-search">
@@ -16,13 +18,22 @@ use yii\jui\DateTimePicker;
 
 	<div class="row" style="margin:20px 0 40px;">
 		<div class="col-md-3" >
-			<?= $form->field($model, 'nazivOs')->textInput()->label('Osnovno sredstvo')?>
-			<?= $form->field($model, 'statusNaloga')->dropDownList([ 'na cekanju' => 'Na cekanju', 'u obradi' => 'U obradi', 'zavrseno' => 'Zavrseno', ], ['prompt' => 'Svi']) ?>
+			<?= $form->field($model, 'nazivOs')->textInput()->label('Osnovno sredstvo', ['class'=>"label-class"])?>
+			<?= $form->field($model, 'statusNaloga')->dropDownList([ 'na cekanju' => 'Na cekanju', 'u obradi' => 'U obradi', 'zavrseno' => 'Zavrseno', ], ['prompt' => 'Svi'])->label('Status naloga', ['class'=>"label-class"])?>
 		</div>
 
 		<div class="col-md-3" >
-			<?= $form->field($model, 'prijavio')->textInput()->label('Korisnik')?>
-			<?= $form->field($model, 'datum')->textInput()->label('Datum')?>
+			<?= $form->field($model, 'prijavio')->textInput()->label('Korisnik', ['class'=>"label-class"]) ?>
+
+			<?= $form->field($model, 'datum')->widget(
+				DatePicker::className(), [
+						 'inline' => false, 
+						 'clientOptions' => [
+							'autoclose' => true,
+							'format' => 'yyyy-m-d'
+						]
+				])->label('Datum', ['class'=>"label-class"]);?>
+
 
 		</div>	
 

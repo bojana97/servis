@@ -2,17 +2,13 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\AtributPretraga */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app', 'Ispis atributa');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Podesavanja kategorija i sredstava'), 'url' => ['..\kategorija\katindex']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 				
-<?= Html::a(Yii::t('app', 'Novi atribut'), ['create'], ['class' => 'btn  btn-success', 'style'=>'float:right;margin:0 0 25px;']) ?>
+<?= Html::a(Yii::t('app', '<i class="glyphicon glyphicon-plus"></i>&nbsp;Novi atribut'), ['create'], ['class' => 'btn  btn-success', 'style'=>'float:right;margin:0 0 25px;']) ?>
 
 <div class="atribut-index" style="width:800px;margin:40px auto 0px;">
 

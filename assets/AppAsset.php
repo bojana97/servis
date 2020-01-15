@@ -26,6 +26,8 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
 		'js/main.js',
+		'js/confirm.js',
+		'js/bootbox.min.js',
 	
 	];
     public $depends = [

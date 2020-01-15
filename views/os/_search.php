@@ -20,8 +20,8 @@ use yii\widgets\ActiveForm;
 
  <div class="row" style="margin:20px 0 20px;">
 	<div class="col-md-4">
-	  <?= $form->field($model, 'kategorija')->textInput()->label('Kategorija') ?>
-	  <?= $form->field($model, 'nazivInvBroj')->textInput()->label('Naziv / inventarni broj sredstva') ?>
+	  <?= $form->field($model, 'kategorija')->textInput()->label('Kategorija', ['class'=>"label-class"]) ?>
+	  <?= $form->field($model, 'nazivInvBroj')->textInput()->label('Naziv / inventarni broj sredstva', ['class'=>"label-class"]) ?>
 
 	</div>
 	
@@ -32,7 +32,9 @@ use yii\widgets\ActiveForm;
 	</div>
 
 	<div class="col-md-4">
-	    <?= Html::a(Yii::t('app', 'Novo sredstvo'), ['create'], ['class' => 'btn btn-success', 'style'=>'margin-left:250px;']) ?>
+		<?= Html::a(Yii::t('app', 'Kategorije'), ['kategorija/index'], ['class' => 'btn btn-info', 'style'=>'float:right;']) ?>
+		<?= Html::a(Yii::t('app', '<i class="glyphicon glyphicon-plus"></i>&nbsp;Novo sredstvo'), ['create'], ['class' => 'btn btn-success', 'style'=>"float:right;margin-right:10px;"]) ?>
+
 	</div>
 </div>
     <?php ActiveForm::end(); ?>

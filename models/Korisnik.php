@@ -27,25 +27,20 @@ use yii\base\NotSupportedException;
  */
 class Korisnik extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
-    /**
-     * {@inheritdoc}
-     */
+
     public static function tableName()
     {
         return 'korisnik';
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function rules()
     {
         return [
             [['ime', 'prezime', 'email', 'korisnickoIme', 'lozinka', 'sektorID'], 'required'],
-            [['sektorID', 'ulogaID'], 'integer'],
+            [['sektorID'], 'integer'],
             [['ime', 'prezime'], 'string', 'max' => 50],
             [['telefon'], 'string', 'max' => 20],
-			[['rola'], 'string'],
 			[['autentKljuc'], 'string'],
             [['email'], 'string', 'max' => 70],
             [['korisnickoIme'], 'string', 'max' => 60],
@@ -53,10 +48,8 @@ class Korisnik extends \yii\db\ActiveRecord implements \yii\web\IdentityInterfac
             [['sektorID'], 'exist', 'skipOnError' => true, 'targetClass' => Sektor::className(), 'targetAttribute' => ['sektorID' => 'sektorID']],
         ];
     }
+	
 
-    /**
-     * {@inheritdoc}
-     */
     public function attributeLabels()
     {
         return [
@@ -64,72 +57,47 @@ class Korisnik extends \yii\db\ActiveRecord implements \yii\web\IdentityInterfac
             'ime' => Yii::t('app', 'Ime'),
             'prezime' => Yii::t('app', 'Prezime'),
             'telefon' => Yii::t('app', 'Telefon'),
-            'email' => Yii::t('app', 'Email'),
-            'korisnickoIme' => Yii::t('app', 'Korisnicko Ime'),
+            'email' => Yii::t('app', 'E-mail'),
+            'korisnickoIme' => Yii::t('app', 'Korisnicko ime'),
             'lozinka' => Yii::t('app', 'Lozinka'),
             'sektorID' => Yii::t('app', 'Sektor ID'),
-			'rola' => Yii::t('app', 'Rola'),
 			'autentKljuc'=>Yii::t('app', 'Autentikacijski kljuc'),
         ];
     }
 
 
-	/**
- * Returns user role name according to RBAC
- * @return string
- */
-public function getRoleName()
-{
-    $roles = Yii::$app->authManager->getRolesByUser($this->id);
-    if (!$roles) {
-        return null;
-    }
 
-    reset($roles);
-    /* @var $role \yii\rbac\Role */
-    $role = current($roles);
+	public function getRoleName()
+	{
+		$roles = Yii::$app->authManager->getRolesByUser($this->id);
+		if (!$roles) { return null; }
 
-    return $role->name;
-}
+		reset($roles);
+		$role = current($roles);
+
+		return $role->name;
+	}
 
 
 
-
-
-
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getSektor()
     {
         return $this->hasOne(Sektor::className(), ['sektorID' => 'sektorID']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getNalogs()
+    public function getNaloziPrijavio()
     {
         return $this->hasMany(Nalog::className(), ['prijavio' => 'korisnikID']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getNalogs0()
+
+    public function getNaloziZaprimio()
     {
-        return $this->hasMany(Nalog::className(), ['izvrsavaNalog' => 'korisnikID']);
+        return $this->hasMany(Nalog::className(), ['zaprimioNalog' => 'korisnikID']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getNalogs1()
-    {
-        return $this->hasMany(Nalog::className(), ['izvrsavaNalog' => 'korisnikID']);
-    }
 
+	//////////////////////////////////////////////////////////////////////////////
 	public function getPunoImeKorisnika()
 	{
 		return Html::encode($this->ime . ' ' .$this->prezime);
@@ -162,7 +130,9 @@ public function getRoleName()
 	}
 
 	public function validatePassword($password){
-		return $this->lozinka === $password;
+		//return $this->lozinka === $password;
+		return Yii::$app->getSecurity()->validatePassword($password, $this->lozinka);
+
 	}
 
 }

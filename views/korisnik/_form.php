@@ -5,35 +5,60 @@ use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use app\models\Sektor;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Korisnik */
-/* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="korisnik-form">
-	<div class="row" style="margin:80px 100px 20px; background-color:#f7f7f7;padding:20px;border-radius:3px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+
+<div class="novi-korisnik-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-	<div class="col-md-6">
-		<?= $form->field($model, 'ime')->textInput(['maxlength' => true]) ?>
-		<?= $form->field($model, 'prezime')->textInput(['maxlength' => true]) ?>
+	<div class="row">
+		<div class="col-md-6">
+			<?= $form->field($model, 'ime')->textInput(['maxlength' => true])->label('Ime', ['class'=>'label-class']) ?>
+		</div>
+		<div class="col-md-6">
+			<?= $form->field($model, 'prezime')->textInput(['maxlength' => true])->label('Prezime', ['class'=>'label-class']) ?>
+		</div>
+	</div>
 
-		<?= $form->field($model, 'sektorID')->textInput()->label('Sektor')
-			 ->dropDownList(ArrayHelper::map(Sektor::find()
-			 ->select(['naziv', 'sektorID'])->all(), 'sektorID', 'naziv'),
-			 ['class'=>'form-control inline-block', 'prompt'=>' '])
-		?>
+
+	<div class="row">
+		<div class="col-md-6">
+			<?= $form->field($model, 'telefon')->textInput(['maxlength' => true])->label('Telefon', ['class'=>'label-class']) ?>
+		</div>
+
+		<div class="col-md-6">
+			<?= $form->field($model, 'sektorID')->textInput()->label('Sektor', ['class'=>'label-class'])
+				 ->dropDownList(ArrayHelper::map(Sektor::find()
+				 ->select(['naziv', 'sektorID'])->all(), 'sektorID', 'naziv'),
+				 ['class'=>'form-control inline-block', 'prompt'=>' '])
+			?>
+		</div>
+	</div>
+	<hr>
+
+
+	<div class="row">
+		<div class="col-md-4">
+			<?= $form->field($model, 'email')->textInput(['maxlength' => true])->label('E-mail', ['class'=>'label-class']) ?>
+		</div>
+
+		<div class="col-md-4">
+			<?= $form->field($model, 'korisnickoIme')->textInput(['maxlength' => true])->label('Korisnicko ime', ['class'=>'label-class']) ?>
+		</div>
+
+		<div class="col-md-4">
+			<?= $form->field($model, 'lozinka')->passwordInput(['maxlength' => true])->label('Lozinka', ['class'=>'label-class']) ?>
+		</div>
+	</div>
+
+	<hr>
+	<div class="row" id="radioList-rola" >
+		<?= $form->field($authAssignment, 'item_name')->radioList($role)->label('Rola korisnika', ['class'=>'label-class']) ; ?>
+	</div>
+		
 		<?= Html::submitButton(Yii::t('app', 'Sacuvaj'), ['class' => 'btn btn-success']) ?>
 
-	</div>
-
-	<div class="col-md-6">
-		<?= $form->field($model, 'telefon')->textInput(['maxlength' => true]) ?>
-		<?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-		<?= $form->field($model, 'korisnickoIme')->textInput(['maxlength' => true]) ?>
-	</div>
-</div>
     <?php ActiveForm::end(); ?>
 
 </div>

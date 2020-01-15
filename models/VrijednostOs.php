@@ -30,7 +30,7 @@ class VrijednostOs extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['vrijAtrID', 'osID'], 'required'],
+            [['vrijAtrID'], 'required'],
             [['vrijAtrID', 'osID'], 'integer'],
             [['vrijAtrID'], 'exist', 'skipOnError' => true, 'targetClass' => VrijednostAtributa::className(), 'targetAttribute' => ['vrijAtrID' => 'vrijAtrID']],
             [['osID'], 'exist', 'skipOnError' => true, 'targetClass' => Os::className(), 'targetAttribute' => ['osID' => 'osID']],

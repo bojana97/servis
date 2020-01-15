@@ -49,7 +49,7 @@
     padding: 9px 16px;
 }
 
-.atribut-detailview {
+.atribut-detailview, .kategorija-detailview {
     width: 500px;
     margin: 50px auto 30px;
     text-align: center;
@@ -58,14 +58,51 @@
     box-shadow: inset -1px 8px 24px 0px rgba(155,165,204,1);
 }
 
-.atribut-detailview .bg-success{
-    padding:15px;
-    margin-bottom: 3px;
-    color: white;
+
+    .atribut-detailview .bg-success {
+        padding: 15px;
+        margin-bottom: 3px;
+        color: white;
+    }
+
+
+.atribut-search, .kategorija-search{
+    width:300px;
+    margin: 60px 0 10px;
+}
+
+.kategorija-form {
+    width: 700px;
+    -webkit-box-shadow: 0px 2px 17px -1px rgba(129,129,133,0.4);
+    -moz-box-shadow: 0px 2px 17px -1px rgba(129,129,133,0.4);
+    box-shadow: 0px 2px 17px -1px rgba(129,129,133,0.4);
+    border-radius: 2px;
+    margin-top: 25px;
+    float: left;
+    padding: 35px 70px;
+    border: 1px solid #DCDCDC;
 }
 
 
-.atribut-search{
-    width:300px;
-    margin: 60px 0 10px;
+.novi-korisnik-form, .novo-sredstvo-form {
+    max-width: 60%;
+    margin: 35px auto;
+    padding: 40px 50px;
+    background-color: rgb(250, 250, 250);
+    -webkit-box-shadow: 0px 0px 48px 1px rgba(215,212,230,0.82);
+    -moz-box-shadow: 0px 0px 48px 1px rgba(215,212,230,0.82);
+    box-shadow: 0px 0px 48px 1px rgba(215,212,230,0.82);
+}
+
+.label-class, #radioList-rola {
+    color: rgb(89, 88, 85);
+}
+
+#radioList-rola{
+    margin: 20px 0 20px 5px;
+}
+
+#radioList-rola label {
+  margin: 15px 10px 0 0;
+    
 }

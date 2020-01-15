@@ -3,14 +3,6 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Atribut 
-
-$this->title = $model[0]->atrID;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Atributs'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-*/
-
 $this->title = $model[0]->nazivAtr;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Atributi'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;

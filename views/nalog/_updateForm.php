@@ -12,9 +12,10 @@ use kartik\select2\Select2;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="nalog-form" style="margin:20px 20px;">
+<div class="nalog-form" style="margin:60px auto; width:70%;">
 
     <?php $form = ActiveForm::begin(); ?>
+
 		<?= $form->field($model, 'osID')->label('Osnovno sredstvo')->widget(Select2::classname(), [
 			'data' =>ArrayHelper::map(Os::find()->select(['nazivOs', 'osID'])->all(), 'osID', 'nazivOs'),
 				'language' => 'en',

@@ -3,21 +3,22 @@
 namespace app\controllers;
 
 use Yii;
+use yii\models\Base;
+use yii\base\Model;
 use app\models\Korisnik;
 use app\models\KorisnikPretraga;
+use app\models\AuthItem;
+use app\models\AuthAssignment;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 
-/**
- * KorisnikController implements the CRUD actions for Korisnik model.
- */
+
 class KorisnikController extends Controller
 {
-    /**
-     * {@inheritdoc}
-     */
+
     public function behaviors()
     {
         return [
@@ -26,11 +27,11 @@ class KorisnikController extends Controller
 				'class' => AccessControl::className(),
 				'rules' => [
 					[
-						'actions' => ['index','view'],                                     //only the yourRole1 and yourRole2
+						'actions' => ['index','view'],                                   
 						'allow' => true,
 						'roles' => ['serviser'],
 					],
-					[    // all the actions are accessible administrator
+					[   
 						'allow' => true,  
 						'roles' => [ 'administrator'],
 					],   
@@ -46,10 +47,7 @@ class KorisnikController extends Controller
         ];
     }
 
-    /**
-     * Lists all Korisnik models.
-     * @return mixed
-     */
+
     public function actionIndex()
     {
         $searchModel = new KorisnikPretraga();
@@ -61,64 +59,84 @@ class KorisnikController extends Controller
         ]);
     }
 
-    /**
-     * Displays a single Korisnik model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+    
+    public function actionView($id){
+
+		$model = Korisnik::find()->with('naloziPrijavio')->with('sektor')
+					->where(['korisnikID'=>$id])
+					->asArray()
+					->all();
+
+		return $this->render('view', [
+			 'model' => $model,
+		]);
     }
 
-    /**
-     * Creates a new Korisnik model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
+
     public function actionCreate()
     {
         $model = new Korisnik();
+		$authAssignment = new AuthAssignment();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->korisnikID]);
-        }
+		$role = ArrayHelper::map(AuthItem::find()->where( ['type'=>1] )->all(), 'name', 'name');
+
+		if(($model->load(Yii::$app->request->post())) && ($authAssignment->load(Yii::$app->request->post())) ) {
+			$model->lozinka = Yii::$app->getSecurity()->generatePasswordHash($model->lozinka);
+			$model->save(false);
+
+			$authAssignment->user_id = $model->korisnikID;
+			$authAssignment->item_name = $authAssignment->item_name;
+			$authAssignment->save(false);
+
+			return $this->redirect(['view', 'id' => $model->korisnikID ]);
+
+		}
 
         return $this->render('create', [
             'model' => $model,
+			'authAssignment'=> $authAssignment,
+			'role' => $role,
+		
         ]);
     }
 
-    /**
-     * Updates an existing Korisnik model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
+
+
+
+
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $role = ArrayHelper::map(AuthItem::find()->where( ['type'=>1] )->all(), 'name', 'name');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->korisnikID]);
+		$model = Korisnik::findOne($id);
+		if(!$model){ throw new NotFoundHttpException("Korisnik nije pronadjen."); }
+
+
+		$authAssignment = AuthAssignment::find()->where(['user_id' => $model->korisnikID])->one();
+		if(!$authAssignment) { throw new NotFoundHttpException('Korisniku nije dodijeljena rola.'); }
+
+        if ( $model->load(Yii::$app->request->post()) && $authAssignment->load(Yii::$app->request->post()) ) {
+           $isValid = $model->validate();
+		   $idValid = $authAssignment->validate() && $isValid;
+
+		   if($isValid){
+				$model->save(false);
+				$authAssignment->save(false);
+
+				return $this->redirect(['view', 'id' => $model->korisnikID]);
+		   }
         }
 
         return $this->render('update', [
             'model' => $model,
+			'authAssignment'=> $authAssignment,
+			'role' => $role,
+		
         ]);
     }
 
-    /**
-     * Deletes an existing Korisnik model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -126,13 +144,7 @@ class KorisnikController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the Korisnik model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Korisnik the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
     protected function findModel($id)
     {
         if (($model = Korisnik::findOne($id)) !== null) {

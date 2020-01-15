@@ -22,9 +22,6 @@ class Sektor extends \yii\db\ActiveRecord
         return 'sektor';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -33,20 +30,16 @@ class Sektor extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
+ 
     public function attributeLabels()
     {
         return [
-            'sektorID' => Yii::t('app', 'Sektor ID'),
+            'sektorID' => Yii::t('app', 'Sektor'),
             'naziv' => Yii::t('app', 'Naziv'),
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
+
     public function getKorisniks()
     {
         return $this->hasMany(Korisnik::className(), ['sektorID' => 'sektorID']);

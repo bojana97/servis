@@ -3,54 +3,61 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Korisnik */
+$korisnik = $model[0];
+$punoIme = $korisnik['ime'].' ' .$korisnik['prezime'];
 
-$this->title = $model->punoImeKorisnika;
+$this->title = $punoIme;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Korisnici'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="korisnik-view" style="margin: 60px 170px;">
+<div class="detailview-container" style="margin-top:50px;">
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            
-			[
-			'label'=> 'Ime i prezime',
-			'attribute'=> 'punoImeKorisnika'
-			],
+	<table class="table table-bordered">
+	  <tbody>
+		<tr>
+		  <th class="bg-success" scope="row">Ime i prezime</th>
+		  <td><?= $punoIme ?></td>
+		</tr>
+		<tr>
+		  <th class="bg-success" scope="row">Sektor</th>
+		  <td><?= $korisnik['sektor']['naziv'] ?></td>
+		</tr>
+		<tr>
+		  <th class="bg-success" scope="row">Telefon</th>
+		  <td><?= $korisnik['telefon']  ?></td>
+		</tr>
+		<tr>
+		  <th class="bg-success" scope="row">Korisnicko ime</th>
+		  <td><?= $korisnik['korisnickoIme'] ?></td>
+		</tr>
+		<tr>
+		  <th class="bg-success" scope="row">E-mail</th>
+		  <td><?= $korisnik['email']  ?></td>
+		</tr>
 
-			[
-			'label'=> 'Sektor',
-			'attribute'=> 'sektor.naziv'
-			],
+		<?php foreach($korisnik['naloziPrijavio'] as $nalog): ?>
+		<tr>
+		  <th class="bg-success" scope="row"> Nalog <?= $nalog['nalogID'] ?>   </th>
+		  <td><?= $nalog['datOtvaranja'] ?>  <?= Html::a(Yii::t('app', '<i class="glyphicon glyphicon-eye-open"></i>'), ['nalog/view?id='.$nalog['nalogID']], ['style'=>'float:right;']) ?></td>
+		</tr>
+		<?php endforeach; ?>
+	  </tbody>
+	</table>
+</div>
 
-            'telefon',
-
-            [
-			'label'=> 'E-mail',
-			'attribute'=> 'email',
-			'format'=>'email'
-			],
-			[
-			'label'=> 'Korisnicko ime',
-			'attribute'=> 'korisnickoIme'
-			],
-        ],
-    ]) ?>
-
-
-	<p>
-        <?= Html::a(Yii::t('app', 'Izmijeni'), ['update', 'id' => $model->korisnikID], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Obrisi'), ['delete', 'id' => $model->korisnikID], [
-            'class' => 'btn btn-danger',
+<div class="detailview-buttons">
+	
+  <?= Html::a(Yii::t('app', 'Izmijeni'), ['update', 'id' => $korisnik['korisnikID']], ['class' => 'detailview-update']) ?>
+        <?= Html::a(Yii::t('app', 'Obrisi'), ['delete', 'id' => $korisnik['korisnikID']], [
+            'class' => 'detailview-delete',
             'data' => [
                 'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
                 'method' => 'post',
             ],
         ]) ?>
-    </p>
+   
+</div>
+
 
 </div>

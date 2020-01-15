@@ -10,8 +10,10 @@ use app\models\VrijednostAtributa;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
 
 /**
  * AtributController implements the CRUD actions for Atribut model.
@@ -272,12 +274,6 @@ class AtributController extends Controller
 	
 
 
-    /**
-     * Deletes an existing Customer model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
@@ -298,7 +294,7 @@ class AtributController extends Controller
         return $this->redirect(['index']);
     }
 
-
+	/*
 	public function actionLists($id){
 
 		$countAtributi = Atribut::find()->innerJoinWith('kategorije')
@@ -308,15 +304,14 @@ class AtributController extends Controller
 		if($countAtributi > 0){
 			$atributi = Atribut::find()->innerJoinWith('kategorije')
 								->where(['kategorija.katID'=>$id])
-								->asArray()
 								->all();
 		
-		print_r($atributi);
+	
 
-		/*	foreach($atributi as $atribut){
+		foreach($atributi as $atribut){
 				echo $atribut->nazivAtr;
 				echo '<br>';
-				$values=VrijednostAtributa::find()->where(['atrID'=>$atribute->atrID])
+				$values=VrijednostAtributa::find()->where(['atrID'=>$atribut ->atrID])
 													->all();
 				foreach($values as $value){
 					echo $value->vrijednost;
@@ -324,29 +319,33 @@ class AtributController extends Controller
 				}
 		}	
 		
-		*/	
 
-		//foreach($atributi as $atribut){
-			//echo "<option value='". $atribut->atrID ."'>" .$atribut->nazivAtr ."</option>";
 
-			//echo "<label>" .$atribut->nazivAtr ."</label>";
-			//$vrijednosti = VrijednostAtributa::find()->where(['atrID' => $atribut->atrID])->all();
-			//echo '<select>';
-			//Atribut::getPa($vrijednosti);
-			//echo '</select>';
-		//	echo '<br>';
+		  foreach($atributi as $atribut){
+			  echo "<option value='". $atribut->atrID ."'>" .$atribut->nazivAtr ."</option>";
 
-		//}
+			  echo "<label>" .$atribut->nazivAtr ."</label>";
+			  $vrijednosti = VrijednostAtributa::find()->where(['atrID' => $atribut->atrID])->all();
+			  echo '<select>';
 
-	}else{
-		//echo "<option></option>";
+			  foreach($vrijednosti as $vrijednost){
+				  echo "<option value='". $vrijednost-<=00000tribut->nazivAtr ."</option>";
+				  echo '</select>';
+			  }
+		  	echo '<br>';
+
+		  }
+
+ }else{
+	 echo "<option></option>";
 	}
 
 		
-	}
+  }
+	*/
 
 
-
+	
 
 
 }

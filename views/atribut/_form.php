@@ -28,7 +28,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
 	<div class="row">
 	<div class="col-sm-8">
     <div class="panel panel-default">
-        <div class="panel-heading"><h5><i class="glyphicon glyphicon-envelope"></i> Unesi vrijednosti</h5></div>
+        <div class="panel-heading"><h5><i class="glyphicon glyphicon-edit"></i> Unesi vrijednosti</h5></div>
         <div class="panel-body">
              <?php DynamicFormWidget::begin([
                 'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]

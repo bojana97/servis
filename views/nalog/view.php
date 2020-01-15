@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
            ],
 		], $options = ['class' => 'table  detail-view']) ?>
 
-
+	
 		<p>
         <?= Html::a(Yii::t('app', 'Izmijeni'), ['update', 'id' => $model->nalogID], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', 'Obrisi'), ['delete', 'id' => $model->nalogID], [

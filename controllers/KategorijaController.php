@@ -7,10 +7,12 @@ use app\models\Kategorija;
 use app\models\KategorijaPretraga;
 use app\models\Atribut;
 use app\models\AtributiKategorije;
+use app\models\KategorijaForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 
 /**
  * KategorijaController implements the CRUD actions for Kategorija model.
@@ -27,7 +29,7 @@ class KategorijaController extends Controller
 				'class' => AccessControl::className(),
 				'rules' => [
 					[    // all the actions are accessible only to administrator
-						'actions' => ['index','view', 'create', 'katindex', 'update', 'delete'],  
+						'actions' => ['index','view', 'create', 'katindex', 'update', 'delete', 'config', 'atributi'],  
 						'allow' => true,  
 						'roles' => [ 'administrator'],
 					],   
@@ -66,16 +68,16 @@ class KategorijaController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+		$KategorijaSaAtributima=Kategorija::find()->with('atributi')->where(['katID'=>$id])->asArray()->all();
+		return $this->render('view', ['KategorijaSaAtributima'=> $KategorijaSaAtributima]);
     }
 
     /**
      * Creates a new Kategorija model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
-     */
+	
+   
     public function actionCreate()
     {
         $model = new Kategorija();
@@ -88,6 +90,27 @@ class KategorijaController extends Controller
             'model' => $model,
         ]);
     }
+	*/
+
+	    public function actionCreate()
+    {
+		
+
+        $model = new Kategorija();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Kategorija je kreirana.'));
+            return $this->redirect(['create', 'id' => $model->katID]);
+        } elseif (!\Yii::$app->request->isPost) {
+            $model->load(Yii::$app->request->get());
+            $model->atributiIDs = ArrayHelper::map($model->atributi, 'nazivAtr', 'nazivAtr');
+        }
+
+        return $this->render('create', ['model' => $model]);
+    }
+
+
+
+
 
     /**
      * Updates an existing Kategorija model.
@@ -95,10 +118,15 @@ class KategorijaController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
-     */
+     
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        //$model = $this->findModel($id);
+
+		
+        if (($model = KategorijaForm::findOne($id)) === null) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->katID]);
@@ -108,6 +136,24 @@ class KategorijaController extends Controller
             'model' => $model,
         ]);
     }
+	*/
+
+
+	    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Kategorija je izmijenjena.'));
+            return $this->redirect(['update', 'id' => $model->katID]);
+        } elseif (!\Yii::$app->request->isPost) {
+            $model->load(Yii::$app->request->get());
+            $model->atributiIDs = ArrayHelper::map($model->atributi, 'nazivAtr', 'nazivAtr');
+        }
+
+        return $this->render('update', ['model' => $model]);
+    }
+
+
 
     /**
      * Deletes an existing Kategorija model.
@@ -150,11 +196,12 @@ class KategorijaController extends Controller
 			->all();
 
 
-		//used for creating new category on the same view
+		/*used for creating new category on the same view
 	    $model = new Kategorija();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->katID]);
         }
+		*/
 
 		//used for creating new atribute on the same view
 		$modelAtribut = new Atribut();
@@ -175,6 +222,24 @@ class KategorijaController extends Controller
 		return $this->render('katindex', ['kategorije'=>$kategorije, 'model'=>$model, 
 										  'modelAtribut'=>$modelAtribut, 
 										  'modelAtributiKategorije' => $modelAtributiKategorije ]);
+	}
+
+
+	public function actionConfig()
+	{	
+		$kategorija = new Kategorija();
+		return $this->render('config', ['kategorija' => $kategorija]);
+	}
+
+
+	public function actionAtributi($id)
+	{
+		$atributiKategorije= Kategorija::find()->innerJoinWith('atributi')
+									->where(['kategorija.katID'=>$id])
+									->asArray()
+									->all();
+									
+		return $this->renderPartial('_atributi', ['atributiKategorije' => $atributiKategorije,]);	
 	}
 
 

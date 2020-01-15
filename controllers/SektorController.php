@@ -50,7 +50,7 @@ class SektorController extends Controller
         $searchModel = new SektorPretraga();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->renderAjax('index', [
+        return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -79,10 +79,11 @@ class SektorController extends Controller
         $model = new Sektor();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Novi sektor uspjesno kreiran!');
+		   Yii::$app->session->setFlash('success', 'Novi sektor uspjesno kreiran!');
+		   return $this->redirect('index');
         }
 
-        return $this->render('create', [
+        return $this->renderAjax('create', [
             'model' => $model,
         ]);
     }

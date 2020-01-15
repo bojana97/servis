@@ -11,10 +11,10 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="korisnik-create">
 
-    <h4 class="text-center"><?= Html::encode($this->title) ?></h4>
-
     <?= $this->render('_form', [
         'model' => $model,
+		'authAssignment'=> $authAssignment,
+		'role' => $role,
     ]) ?>
 
 </div>

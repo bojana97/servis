@@ -22,7 +22,7 @@ class OsPretraga extends Os
     public function rules()
     {
         return [
-            [['osID', 'roditeljID', 'katID'], 'integer'],
+            [['osID','katID'], 'integer'],
             [['invBroj', 'kategorija', 'nazivInvBroj', 'nazivOs'], 'safe'],
         ];
     }

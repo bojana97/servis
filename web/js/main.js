@@ -1,5 +1,4 @@
 
-
 $(function () {
     $('#modelButton').click(function () {
         $('.modal').modal('show')

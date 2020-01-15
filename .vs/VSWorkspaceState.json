@@ -1,10 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\views\\nalog",
-    "\\views\\os",
-    "\\web\\js"
+    "\\controllers",
+    "\\views",
+    "\\views\\os"
   ],
-  "SelectedNode": "\\views",
+  "SelectedNode": "\\views\\os\\_form.php",
   "PreviewInSolutionExplorer": false
 }

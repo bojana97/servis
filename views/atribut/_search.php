@@ -3,24 +3,22 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\AtributPretraga */
-/* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="atribut-search" >
-			<?php $form = ActiveForm::begin([
-				'action' => ['index'],
-				'method' => 'get',
-				'options' => [
-					'data-pjax' => 1
+
+	<?php $form = ActiveForm::begin([
+		'action' => ['index'],
+		'method' => 'get',
+		'options' => [
+				'data-pjax' => 1
 				],
-			]); ?>
+	]); ?>
 
 
-			<?= $form->field($model, 'nazivAtr')->textInput(['placeholder' => "Pretrazi atribut..."])->label(false) ?> 
+	<?= $form->field($model, 'nazivAtr')->textInput(['placeholder' => "Pretrazi atribut..."])->label(false) ?> 
 		
-		<?php ActiveForm::end(); ?>
+	<?php ActiveForm::end(); ?>
 	
 </div>
 

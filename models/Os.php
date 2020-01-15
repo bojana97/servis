@@ -35,12 +35,11 @@ class Os extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-			[['osID', 'invBroj'], 'required'],
-            [['roditeljID', 'katID'], 'integer'],
+			[['invBroj'], 'required'],
+            [['katID'], 'integer'],
             [['invBroj'], 'string', 'max' => 10],
             [['nazivOs'], 'string', 'max' => 40],
             [['invBroj'], 'unique'],
-            [['roditeljID'], 'exist', 'skipOnError' => true, 'targetClass' => Os::className(), 'targetAttribute' => ['roditeljID' => 'osID']],
             [['katID'], 'exist', 'skipOnError' => true, 'targetClass' => Kategorija::className(), 'targetAttribute' => ['katID' => 'katID']],
         ];
     }
@@ -53,7 +52,6 @@ class Os extends \yii\db\ActiveRecord
         return [
             'osID' => Yii::t('app', 'Os ID'),
             'invBroj' => Yii::t('app', 'Inv Broj'),
-            'roditeljID' => Yii::t('app', 'Roditelj ID'),
             'katID' => Yii::t('app', 'Kat ID'),
             'nazivOs' => Yii::t('app', 'Naziv Os'),
         ];
@@ -67,21 +65,7 @@ class Os extends \yii\db\ActiveRecord
         return $this->hasMany(Nalog::className(), ['osID' => 'osID']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRoditelj()
-    {
-        return $this->hasOne(Os::className(), ['osID' => 'roditeljID']);
-    }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getOs()
-    {
-        return $this->hasMany(Os::className(), ['roditeljID' => 'osID']);
-    }
 
     /**
      * @return \yii\db\ActiveQuery
@@ -115,6 +99,8 @@ class Os extends \yii\db\ActiveRecord
 	{
 		return $this->invBroj;
 	}
+
+
 
 
 }

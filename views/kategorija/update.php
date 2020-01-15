@@ -1,21 +1,41 @@
 <?php
 
 use yii\helpers\Html;
-
-/* @var $this yii\web\View */
-/* @var $model app\models\Kategorija */
+use yii\helpers\ArrayHelper;
+use yii\widgets\ActiveForm;
+use app\models\kategorija;
 
 $this->title = Yii::t('app', 'Izmijeni kategoriju: {name}', [
     'name' => $model->nazivKat,
 ]);
 
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Ispis kategorija'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Kategorije'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->nazivKat, 'url' => ['view', 'id' => $model->katID]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Izmijeni');
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="kategorija-update" style="margin-top:70px;">
 
-    <h4 style="text-align:center;"><?= Html::encode($this->title) ?></h4>
+<div class="kategorija-update">
+	<div class="kategorija">
+	<?php $form = ActiveForm::begin(); ?>
+
+ 		<div class="col-sm-4" style="float:right;">
+			<?= $form->field($model, 'katID')->textInput()->label('Ispisi atribute kategorije')
+				 ->dropDownList(ArrayHelper::map(Kategorija::find()
+				 ->select(['nazivKat', 'katID'])->all(), 'katID','nazivKat'),
+				 [
+					'prompt' => Yii::t('app','-'),
+					'onchange'=>'
+					$.get( "'.Yii::$app->urlManager->createUrl('kategorija/atributi?id=').'"+$(this).val(), function( data ) {
+					$( "#table" ).html( data );
+					})'
+				]
+		);   
+		?>
+		
+		<div id="table"> </div>
+
+	<?php ActiveForm::end(); ?>
+	</div>
 
     <?= $this->render('_form', [
         'model' => $model,

@@ -11,7 +11,7 @@ use yii\helpers\Url;
 $this->title = Yii::t('app', 'Nalozi');
 ?>
 
-	<?= Html::button('Novi nalog', ['value'=>Yii::$app->urlManager->createUrl('/nalog/create'), 
+	<?= Html::button('<i class="glyphicon glyphicon-plus"></i>&nbsp;Novi nalog', ['value'=>Yii::$app->urlManager->createUrl('/nalog/create'), 
 					'class'=>'btn btn-success', 'style'=>'margin:20px 0;float:right;',
 					'id'=>'modelButton'])
 	?>
@@ -103,12 +103,37 @@ $this->title = Yii::t('app', 'Nalozi');
 			'value'=>function($data) { return substr($data->opis, 0, 20);  },
 			'headerOptions' => ['style' => 'background-color:#0275d8; color:white; padding:10px;font-size:13px;', 'class' => 'text-center'],
 			],
-            ['class' => 'yii\grid\ActionColumn',
-			'headerOptions' => ['style' => 'background-color:#0275d8; color:white; padding:10px;font-size:13px;', 'class' => 'text-center'],
-			],
-        ],
+
+
+       [
+	   'class' => 'yii\grid\ActionColumn',
+	   'headerOptions' => ['style' => 'background-color:#0275d8; color:white; padding:10px;font-size:13px;', 'class' => 'text-center'],
+		   'buttons' => [
+			  'delete' => function($url, $model){
+				 return Html::a('<i class="glyphicon glyphicon-trash"></i>', $url = Url::toRoute(['nalog/delete', 'id' => $model->nalogID]),
+				 [    
+					'data' => [
+						'confirm' => Yii::t('yii','<i class="glyphicon glyphicon-trash"></i> Da li ste sigurni da zelite obrisati nalog?'),
+						'method' => 'POST',
+						'pjax' => 0,                                            
+						'title' => Yii::t('yii', 'Confirm?'),
+						'ok' => Yii::t('yii', 'Confirm'),
+						'cancel' => Yii::t('yii', 'Cancel'),
+					],
+				 ]);
+			  }
+		   ]
+	   ],
+	
+	   
+
+
+
+
+      ],
 	   'tableOptions' => ['class' => 'table table-sm table-stripped table-hover', 'style'=>'border-radius:10px;'],
     ]); ?>
+
 
 
 </div>

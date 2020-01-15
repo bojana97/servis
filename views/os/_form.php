@@ -8,67 +8,49 @@ use app\models\Os;
 use app\models\Atribut;
 use app\models\VrijednostAtributa;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Os */
-/* @var $form yii\widgets\ActiveForm */
+
 ?>
 
-<div class="os-form">
- <div style="width:900px;margin:50px auto 20px; background-color:#f7f7f7;padding:20px;
- border-radius:1px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-
+<div class="novo-sredstvo-form">
+ <div >
 
  <?php $form = ActiveForm::begin(); ?>
 
 	<div class="row">
 	<div class="col-sm-4">
-		<?= $form->field($model, 'invBroj')->textInput(['maxlength' => true])->label('Inventarni broj') ?>
+		<?= $form->field($modelOs, 'invBroj')->textInput(['maxlength' => true])->label('Inventarni broj', ['class'=>'label-class']) ?>
 	</div>
 	<div class="col-sm-4">
-		<?= $form->field($model, 'nazivOs')->textInput(['maxlength' => true])->label('Naziv osnovnog sredstva') ?>
+		<?= $form->field($modelOs, 'nazivOs')->textInput(['maxlength' => true])->label('Naziv osnovnog sredstva', ['class'=>'label-class']) ?>
 	</div>
 
 	<div class="col-sm-4">
-		<?= $form->field($model, 'katID')->textInput()->label('Kategorija')
+		<?= $form->field($modelOs, 'katID')->textInput()->label('Kategorija', ['class'=>'label-class'])
 			 ->dropDownList(ArrayHelper::map(Kategorija::find()
 			 ->select(['nazivKat', 'katID'])->all(), 'katID','nazivKat'),
 			 [
 				'prompt' => Yii::t('app',' '),
 				'onchange'=>'
-				$.get( "'.Yii::$app->urlManager->createUrl('atribut/lists?id=').'"+$(this).val(), function( data ) {
-
-					$( "#id" ).html( data );
+				$.get( "'.Yii::$app->urlManager->createUrl('os/list?id=').'"+$(this).val(), function( data ) {
+				$( "#table" ).html( data );
 				})'
 			]
 	);   
 	?>
 	</div>
 	</div>
-	<?php
+	<hr>
 	
 
-	echo $atributi[0]
-			//foreach($atributi as $atribut){
-			//echo "<option value='". $atribut->atrID ."'>" .$atribut->nazivAtr ."</option>";
-
-			//echo "<label>" .$atribut->nazivAtr ."</label>";
-			//$vrijednosti = VrijednostAtributa::find()->where(['atrID' => $atribut->atrID])->all();
-			//echo '<select>';
-			//Atribut::getPa($vrijednosti);
-			//echo '</select>';
-			//echo '<br>';
-
-		//}
+	<div id="table">
+	<!-- forma sa atibutima selektovane kategorije i njihove vrijednosti  -->
+	</div>
 
 
-
-
-	<hr>
-	<div id='id'></div>
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Sacuvaj'), ['class' => 'btn btn-success']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
+  <?php ActiveForm::end(); ?>
 
 </div>

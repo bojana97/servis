@@ -38,6 +38,7 @@ AppAsset::register($this);
     ]);
 
     echo Nav::widget([
+		'encodeLabels' => false,
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
 			  [
@@ -62,7 +63,7 @@ AppAsset::register($this);
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Odjavi se (' . Yii::$app->user->identity->ime .' '.  Yii::$app->user->identity->prezime .')',
+                    '<i class="glyphicon glyphicon-off"></i> Odjavi se (' . Yii::$app->user->identity->ime .' '.  Yii::$app->user->identity->prezime .')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
