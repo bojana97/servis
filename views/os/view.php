@@ -11,7 +11,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <div>
-
 <div class="detailview-container">
 
 	<table class="table table-bordered">

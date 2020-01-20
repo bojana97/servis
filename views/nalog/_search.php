@@ -30,7 +30,7 @@ use dosamigos\datepicker\DatePicker;
 						 'inline' => false, 
 						 'clientOptions' => [
 							'autoclose' => true,
-							'format' => 'yyyy-m-d'
+							'format' => 'yyyy-mm-dd'
 						]
 				])->label('Datum', ['class'=>"label-class"]);?>
 

@@ -64,10 +64,10 @@ class NalogPretraga extends Nalog
 			
         ]);
 
+
         $query ->andFilterWhere(['like', 'nazivOs', $this->nazivOs])
-            ->andFilterWhere(['like', 'prijavio.ime', $this->prijavio])
-			->orFilterWhere(['like', 'prijavio.prezime', $this->prijavio])
-			->orFilterWhere(['=', 'prijavio.korisnikID', $this->prijavio])
+			->orFilterWhere(['=', 'invBroj', $this->nazivOs])
+            ->andFilterWhere(['like',  'concat(prijavio.ime, " " , prijavio.prezime) ', $this->prijavio])
 			->andFilterWhere(['like', 'datOtvaranja', $this->datum])
 			->orFilterWhere(['like', 'datZatvaranja', $this->datum]);
 

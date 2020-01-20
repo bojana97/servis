@@ -23,22 +23,29 @@ use app\models\VrijednostAtributa;
 		</div>
 
 		<div class="col-sm-4">
+
 			<?= $form->field($modelOs, 'katID')->textInput()->label('Kategorija', ['class'=>'label-class'])
 				 ->dropDownList(ArrayHelper::map(Kategorija::find()
-				 ->select(['nazivKat', 'katID'])->all(), 'katID','nazivKat'),
-				 [
-					'prompt' => Yii::t('app',' '),
-					'onchange'=>'
-					$.get( "'.Yii::$app->urlManager->createUrl('os/list?id=').'"+$(this).val(), function( data ) {
-					$( "#table" ).html( data );
-					})'
-				]
-		);   
-		?>
+				 ->select(['nazivKat', 'katID'])->all(), 'katID', 'nazivKat'),
+				 ['class'=>'form-control inline-block', 'prompt'=>' '])
+			?>
+
 		</div>
+
 		</div>
 		<hr>
-	
+
+		<?php foreach($modelsVrijednostOs as $i => $modelVrijednostOs):?>
+			
+		<?php        $atribut = $atributiKategorije[0]['atributi'][$i]; ?>
+
+ 		<?= $form->field($modelVrijednostOs, "[$i]vrijAtrID")->label($atribut['nazivAtr'], ['class' => 'label-class'])
+		 		->dropDownList(ArrayHelper::map(VrijednostAtributa::find()
+				->select(['vrijednost', 'vrijAtrID'])->where(['atrID' => $atribut['atrID']])->all(), 'vrijAtrID','vrijednost'),
+				[  'prompt' => Yii::t('app',' '),])
+		?>
+		
+		<?php  endforeach; ?>
 
 		<div class="form-group">
 			<?= Html::submitButton(Yii::t('app', 'Sacuvaj'), ['class' => 'btn btn-success']) ?>

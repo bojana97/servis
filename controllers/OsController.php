@@ -10,11 +10,12 @@ use app\models\VrijednostOs;
 use app\models\VrijednostAtributa;
 use app\models\Atribut;
 use app\models\Kategorija;
-use app\models\Model;
+use app\base\Model;
 use app\base\ParentModel;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 
 
 class OsController extends Controller
@@ -69,30 +70,78 @@ class OsController extends Controller
 
 
 
+
+
+
+
     public function actionUpdate($id)
     {
-       /* 
-
-       if ($modelOs->load(Yii::$app->request->post()) && $modelOs->save()) {
-            return $this->redirect(['view', 'id' => $modelOs->osID]);
-       }
-	*/
 
 		$modelOs = $this->findModel($id);
+		//$modelsVrijednostOs = VrijednostOs::find()->with('vrijAtr')->where(['osID'=> $id])->asArray()->all();
+		$modelsVrijednostOs = VrijednostOs::find()->with('vrijAtr')->where(['osID'=> $id])->all();
+		//$modelsVrijednostOs = $modelOs->vrijednostOs;
+		//$modelsVrijednostOs = v::find()->with('vrijednostAtributa')->where(['osID' => $id])->ALL();
 
 
+		$atributiKategorije = Kategorija::find()->innerJoinWith('atributi')
+									->where(['kategorija.katID'=>$modelOs->katID])
+									->asArray()
+									->all();
+		
+		if ($modelOs->load(Yii::$app->request->post())) {
+
+            $oldIDs = ArrayHelper::map($modelsVrijednostOs, 'vrijOsID', 'vrijOsID');
+            $modelsVrijednostOs = Model::createMultiple(VrijednostOs::classname(), $modelsVrijednostOs);
+            Model::loadMultiple($modelsVrijednostOs, Yii::$app->request->post());
+            $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($modelsVrijednostOs, 'vrijOsID', 'vrijOsID')));
+
+            // validate all models
+            $valid = $modelOs->validate();
+            $valid = Model::validateMultiple($modelsVrijednostOs) && $valid;
+
+            if ($valid) {
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    if ($flag = $modelOs->save(false)) {
+                        if (!empty($deletedIDs)) {
+
+							try{
+							    VrijednostOs::deleteAll(['vrijOsID' => $deletedIDs]);
+							} catch (\yii\db\Exception $e) {
+								throw new \yii\web\HttpException(400, 'Failed to delete the object.');
+							 }
+
+                        }
+                        foreach ($modelsVrijednostOs as $modelVrijednostOs) {
+                            $modelVrijednostOs->osID = $modelOs->osID;
+                            if (! ($flag = $modelVrijednostOs->save(false))) {
+                                $transaction->rollBack();
+                                break;
+                            }
+                        }
+                    }
+                    if ($flag) {
+                        $transaction->commit();
+                        return $this->redirect(['view', 'id' => $modelOs->osID]);
+                    }
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
+        }
 
         return $this->render('update', [
             'modelOs' => $modelOs,
+			'modelsVrijednostOs' => $modelsVrijednostOs,
+			'atributiKategorije' => $atributiKategorije,
         ]);
+	}
 
 
 
 
-    }
-
-
-	 public function actionCreate()
+	public function actionCreate()
     {
 		$modelOs = new Os();
 		$modelsVrijednostOs = [new VrijednostOs()];

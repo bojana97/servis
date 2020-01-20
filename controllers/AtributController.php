@@ -203,26 +203,11 @@ class AtributController extends Controller
 
 
   
-
-
-
-
-
-    /**
-     * Updates an existing Customer model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
-
 	 
     public function actionUpdate($id)
     {
         $modelAtribut = $this->findModel($id);
         $modelsVrijednostAtributa = $modelAtribut->vrijednostAtributas;
-		//ECHO '<pre>';
-		//PRINT_R($modelsVrijednostAtributa);
-		//echo '</pre>';
 
         if ($modelAtribut->load(Yii::$app->request->post())) {
 
@@ -274,8 +259,7 @@ class AtributController extends Controller
 	
 
 
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $model = $this->findModel($id);
         $atribut = $model->nazivAtr;
 		
@@ -286,66 +270,13 @@ class AtributController extends Controller
 		} catch (\yii\db\Exception $e) {
 			  if ($e->errorInfo[1] == 1451) {
         throw new \yii\web\HttpException(400, 'Failed to delete the object.');
-			 } else {
-        throw $e;
+		} else {
+			throw $e;
+			}
 		}
-}
 
         return $this->redirect(['index']);
     }
-
-	/*
-	public function actionLists($id){
-
-		$countAtributi = Atribut::find()->innerJoinWith('kategorije')
-								->where(['kategorija.katID'=>$id])
-								->count();
-
-		if($countAtributi > 0){
-			$atributi = Atribut::find()->innerJoinWith('kategorije')
-								->where(['kategorija.katID'=>$id])
-								->all();
-		
-	
-
-		foreach($atributi as $atribut){
-				echo $atribut->nazivAtr;
-				echo '<br>';
-				$values=VrijednostAtributa::find()->where(['atrID'=>$atribut ->atrID])
-													->all();
-				foreach($values as $value){
-					echo $value->vrijednost;
-					echo '</br>';
-				}
-		}	
-		
-
-
-		  foreach($atributi as $atribut){
-			  echo "<option value='". $atribut->atrID ."'>" .$atribut->nazivAtr ."</option>";
-
-			  echo "<label>" .$atribut->nazivAtr ."</label>";
-			  $vrijednosti = VrijednostAtributa::find()->where(['atrID' => $atribut->atrID])->all();
-			  echo '<select>';
-
-			  foreach($vrijednosti as $vrijednost){
-				  echo "<option value='". $vrijednost-<=00000tribut->nazivAtr ."</option>";
-				  echo '</select>';
-			  }
-		  	echo '<br>';
-
-		  }
-
- }else{
-	 echo "<option></option>";
-	}
-
-		
-  }
-	*/
-
-
-	
 
 
 }
