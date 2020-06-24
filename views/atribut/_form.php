@@ -86,7 +86,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
 	</div>
 
     <div class="form-group">
-        <?= Html::submitButton($modelVrijednostAtributa->isNewRecord ? 'Create' : 'Update', ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton($modelVrijednostAtributa->isNewRecord ? 'Kreiraj' : 'Izmijeni', ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

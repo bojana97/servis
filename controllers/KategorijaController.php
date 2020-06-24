@@ -68,8 +68,13 @@ class KategorijaController extends Controller
      */
     public function actionView($id)
     {
-		$KategorijaSaAtributima=Kategorija::find()->with('atributi')->where(['katID'=>$id])->asArray()->all();
-		return $this->render('view', ['KategorijaSaAtributima'=> $KategorijaSaAtributima]);
+		$KategorijaSaAtributima = Kategorija::find()->with('atributi')
+													->where(['katID'=>$id])
+													->asArray()
+													->all();
+
+		return $this->render('view', 
+							['KategorijaSaAtributima'=> $KategorijaSaAtributima]);
     }
 
     /**
@@ -164,7 +169,21 @@ class KategorijaController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        
+		$model = $this->findModel($id);
+        $kategorija = $model->nazivKat;
+
+				try {
+			$model->delete();
+			Yii::$app->session->setFlash('success', 'Record  <strong>"' . $kategorija. '"</strong> deleted successfully.');
+
+		} catch (\yii\db\Exception $e) {
+			  if ($e->errorInfo[1] == 1451) {
+        throw new \yii\web\HttpException(400, 'Failed to delete the object.');
+		} else {
+			throw $e;
+			}
+		}
 
         return $this->redirect(['index']);
     }

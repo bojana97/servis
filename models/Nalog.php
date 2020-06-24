@@ -100,23 +100,18 @@ class Nalog extends \yii\db\ActiveRecord
                       'createdByAttribute' => 'prijavio',
 					  'updatedByAttribute'=> false,
                   ],
-		];
-		
+		];	
     }
 
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
+ 
     public function getOs()
     {
         return $this->hasOne(Os::className(), ['osID' => 'osID']);
     }
 
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
+
     public function getZaprimioNalog0()
     {
         return $this->hasOne(Korisnik::className(), ['korisnikID' => 'zaprimioNalog']);

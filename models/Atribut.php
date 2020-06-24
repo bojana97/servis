@@ -46,14 +46,6 @@ class Atribut extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-    
-    public function getAtributiKategorijes()
-    {
-        return $this->hasMany(AtributiKategorije::className(), ['atrID' => 'atrID']);
-    }
-	*/
 
 	public function getKategorije(){
 		return $this->hasMany(Kategorija::className(), ['katID' => 'katID'] )
@@ -61,9 +53,7 @@ class Atribut extends \yii\db\ActiveRecord
 	}
 
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
+  
     public function getVrijednostAtributas()
     {
         return $this->hasMany(VrijednostAtributa::className(), ['atrID' => 'atrID']);

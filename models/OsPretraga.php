@@ -7,17 +7,10 @@ use yii\data\ActiveDataProvider;
 use app\models\Os;
 use app\models\Kategorija;
 
-/**
- * OsPretraga represents the model behind the search form of `app\models\Os`.
- */
 class OsPretraga extends Os
 {
-    /**
-     * {@inheritdoc}
-     */
-
-	 public $kategorija;
-	 public $nazivInvBroj; 
+	public $kategorija;
+	public $nazivInvBroj; 
 
     public function rules()
     {
@@ -27,12 +20,8 @@ class OsPretraga extends Os
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function scenarios()
     {
-        // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
 
@@ -52,7 +41,7 @@ class OsPretraga extends Os
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-			'pagination' => [ 'pageSize' => 8 ],
+			'pagination' => [ 'pageSize' => 9 ],
         ]);
 
         $this->load($params);
@@ -67,7 +56,7 @@ class OsPretraga extends Os
 
         $query->andFilterWhere(['like', 'kategorija.nazivKat', $this->kategorija])
             ->andFilterWhere(['like', 'nazivOs', $this->nazivInvBroj])
-			->orFilterWhere(['like', 'invBroj', $this->nazivInvBroj]);
+			->orFilterWhere(['=', 'invBroj', $this->nazivInvBroj]);
 
         return $dataProvider;
     }

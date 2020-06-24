@@ -78,11 +78,7 @@ class OsController extends Controller
     {
 
 		$modelOs = $this->findModel($id);
-		//$modelsVrijednostOs = VrijednostOs::find()->with('vrijAtr')->where(['osID'=> $id])->asArray()->all();
 		$modelsVrijednostOs = VrijednostOs::find()->with('vrijAtr')->where(['osID'=> $id])->all();
-		//$modelsVrijednostOs = $modelOs->vrijednostOs;
-		//$modelsVrijednostOs = v::find()->with('vrijednostAtributa')->where(['osID' => $id])->ALL();
-
 
 		$atributiKategorije = Kategorija::find()->innerJoinWith('atributi')
 									->where(['kategorija.katID'=>$modelOs->katID])

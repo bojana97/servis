@@ -46,8 +46,15 @@ class NalogPretraga extends Nalog
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-			'pagination' => [ 'pageSize' => 8],
+			'pagination' => [ 'pageSize' => 9],
+			'sort' => ['defaultOrder' => 
+								['datOtvaranja' => SORT_DESC, ] 
+					   ]
         ]);
+
+
+
+
 
         $this->load($params);
 
@@ -68,6 +75,7 @@ class NalogPretraga extends Nalog
         $query ->andFilterWhere(['like', 'nazivOs', $this->nazivOs])
 			->orFilterWhere(['=', 'invBroj', $this->nazivOs])
             ->andFilterWhere(['like',  'concat(prijavio.ime, " " , prijavio.prezime) ', $this->prijavio])
+			->orFilterWhere(['=', 'prijavio.korisnikID', $this->prijavio])
 			->andFilterWhere(['like', 'datOtvaranja', $this->datum])
 			->orFilterWhere(['like', 'datZatvaranja', $this->datum]);
 

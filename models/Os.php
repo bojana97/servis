@@ -21,21 +21,17 @@ use Yii;
  */
 class Os extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
+
     public static function tableName()
     {
         return 'os';
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function rules()
     {
         return [
-			[['invBroj'], 'required'],
+			[['invBroj', 'katID'], 'required'],
             [['katID'], 'integer'],
             [['invBroj'], 'string', 'max' => 10],
             [['nazivOs'], 'string', 'max' => 40],
@@ -57,9 +53,6 @@ class Os extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getNalogs()
     {
         return $this->hasMany(Nalog::className(), ['osID' => 'osID']);
@@ -67,17 +60,12 @@ class Os extends \yii\db\ActiveRecord
 
 
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getKat()
     {
         return $this->hasOne(Kategorija::className(), ['katID' => 'katID']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-    */
+
 
     public function getVrijednostOs()
     {

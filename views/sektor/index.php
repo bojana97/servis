@@ -7,7 +7,7 @@ use yii\bootstrap\Modal;
 use yii\helpers\Url;
 
 
-$this->title = Yii::t('app', 'Sektor');
+$this->title = Yii::t('app', 'Sektori');
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= Html::button('<i class="glyphicon glyphicon-plus"></i> Novi sektor', ['value'=>Yii::$app->urlManager->createUrl('/sektor/create'), 
 				'class' => 'btn btn-success', 'style'=>'float:right;margin:0 0 25px;', 'id'=>'modelButton']) ?>
 
-<div class="sektor-index" style="width:800px;margin:80px auto 0px;">
+<div class="sektor-index" style="width:715px;margin:80px auto 0px;">
    
    	<?php       
 	  Modal::begin([

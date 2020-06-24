@@ -49,7 +49,10 @@ class KorisnikPretraga extends Korisnik
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-			'pagination' => [ 'pageSize' => 7 ],
+			'pagination' => [ 'pageSize' => 10],
+			'sort' => ['defaultOrder' => 
+								['ime' => SORT_ASC, ] 
+					   ]
         ]);
 
         $this->load($params);

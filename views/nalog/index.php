@@ -83,13 +83,13 @@ $this->title = Yii::t('app', 'Nalozi');
 		  	[
 			'label'=>'Datum otvaranja',
 			'value'=>'datOtvaranja',
-			'format' => ['date', 'php:d-m-Y h:i:s'],
+			'format' => ['date', 'php:d-m-Y'],
 			'headerOptions' => ['style' => 'background-color:#0275d8; color:white; padding:10px;font-size:13px;', 'class' => 'text-center'],
 			],
      		[
 			'label'=>'Datum zatvaranja',
 			'value'=>'datZatvaranja',
-			'format' => ['date', 'php:d-m-Y h:i:s'],
+			'format' => ['date', 'php:d-m-Y'],
 			'headerOptions' => ['style' => 'background-color:#0275d8; color:white; padding:10px;font-size:13px;', 'class' => 'text-center'],
 			],
 
@@ -100,7 +100,7 @@ $this->title = Yii::t('app', 'Nalozi');
 			],
 			[
 			'label'=>'Opis',
-			'value'=>function($data) { return substr($data->opis, 0, 20);  },
+			'value'=>function($data) { return substr($data->opis, 0, 33);  },
 			'headerOptions' => ['style' => 'background-color:#0275d8; color:white; padding:10px;font-size:13px;', 'class' => 'text-center'],
 			],
 
