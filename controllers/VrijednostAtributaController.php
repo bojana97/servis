@@ -99,38 +99,7 @@ class VrijednostAtributaController extends Controller
         ]);
     }
 	
-	/*
 
-	public function actionCreate(){
-
-			//Find out how many products have been submitted by the form
-			$count = count(Yii::$app->request->post('VrijednostAtributa', []));
-
-			//Send at least one model to the form
-			$vrijednosti = [new VrijednostAtributa()];
-
-			//Create an array of the products submitted
-			for($i = 1; $i < $count; $i++) {
-				$vrijednosti[] = new VrijednostAtributa();
-			}
-
-			//Load and validate the multiple models
-			if (Model::loadMultiple($vrijednosti, Yii::$app->request->post()) && Model::validateMultiple($vrijednosti)) {
-
-				foreach ($vrijednosti as $vrijednost) {
-
-					//Try to save the models. Validation is not needed as it's already been done.
-					$vrijednost->save(false);
-
-				}
-				Yii::$app->session->setFlash('succes', 'Vrijednost atributa uspjesno unesena!');
-				return $this->redirect('index');
-			}
-
-		return $this->render('create', ['vrijednosti' => $vrijednosti]);
-		
-	}
-	*/
 
     /**
      * Updates an existing VrijednostAtributa model.

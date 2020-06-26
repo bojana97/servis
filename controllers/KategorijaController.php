@@ -81,26 +81,10 @@ class KategorijaController extends Controller
      * Creates a new Kategorija model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
-	
-   
-    public function actionCreate()
+	 */
+
+	public function actionCreate()
     {
-        $model = new Kategorija();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->katID]);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-	*/
-
-	    public function actionCreate()
-    {
-		
-
         $model = new Kategorija();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Kategorija je kreirana.'));
@@ -119,32 +103,9 @@ class KategorijaController extends Controller
 
     /**
      * Updates an existing Kategorija model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     
-    public function actionUpdate($id)
-    {
-        //$model = $this->findModel($id);
-
-		
-        if (($model = KategorijaForm::findOne($id)) === null) {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->katID]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
 	*/
 
-
-	    public function actionUpdate($id)
+	public function actionUpdate($id)
     {
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -162,10 +123,6 @@ class KategorijaController extends Controller
 
     /**
      * Deletes an existing Kategorija model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
     {
@@ -213,14 +170,6 @@ class KategorijaController extends Controller
 			->join ('INNER JOIN', 'atribut', 'atributi_kategorije.atrID=atribut.atrID')
 			->orderBy('nazivKat ASC')
 			->all();
-
-
-		/*used for creating new category on the same view
-	    $model = new Kategorija();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->katID]);
-        }
-		*/
 
 		//used for creating new atribute on the same view
 		$modelAtribut = new Atribut();
